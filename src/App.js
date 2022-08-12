@@ -5,10 +5,12 @@ import Header from "./components/common/Header";
 import Post from "./pages/Post";
 import Write from "./pages/Write";
 import Register from "./pages/Register";
+import GlobalStyle from "./styles/GlobalStyle";
 
 function App() {
   return (
     <BrowserRouter>
+      <GlobalStyle />
       <Header />
       <Routes>
         <Route path="/" element={<Post />} />
