@@ -62,7 +62,7 @@ function Header() {
 
 const Head = styled.div`
   height: 80px;
-  background-color: #cbcbfe;
+  background-color: #aac0f9;
 `;
 
 export default Header;
