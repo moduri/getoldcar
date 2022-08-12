@@ -20,6 +20,8 @@ function Header() {
     setDecidepage(false);
   };
 
+  console.log("변화");
+
   const getedToken = true;
 
   return (
