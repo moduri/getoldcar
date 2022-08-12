@@ -13,7 +13,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Post />} />
         <Route path="write" element={<Write />} />
-        <Route path="register/:path" element={<Register />} />
+        <Route path="/" element={<Register />} />
       </Routes>
     </BrowserRouter>
   );
