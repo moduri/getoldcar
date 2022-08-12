@@ -1,28 +1,63 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
-import { useNavigate } from "react-router-dom";
+import Register from "../../pages/Register";
 
 function Header() {
-  const navigate = useNavigate();
+  const [showModal, setShowModal] = useState(false);
+  const [decidepage, setDecidepage] = useState(true);
+
+  const openModal = () => {
+    setShowModal(true);
+  };
+  const closeModal = () => {
+    setShowModal(false);
+  };
+
+  const toLogin = () => {
+    setDecidepage(true);
+  };
+  const toRegister = () => {
+    setDecidepage(false);
+  };
+
+  console.log("변화");
+
+  const getedToken = true;
+
   return (
     <>
-      <div>
-        <button
-          onClick={() => {
-            navigate("register/1");
-          }}
-        >
-          로그인
-        </button>
-        <button
-          onClick={() => {
-            navigate("register/0");
-          }}
-        >
-          회원가입
-        </button>
-      </div>
-      <Head>헤드</Head>
+      <Head>
+        <div>
+          {getedToken ? (
+            <>
+              <button
+                onClick={() => {
+                  toLogin();
+                  openModal();
+                }}
+              >
+                로그인!
+              </button>
+              <button
+                onClick={() => {
+                  toRegister();
+                  openModal();
+                }}
+              >
+                회원가입!
+              </button>
+            </>
+          ) : null}
+
+          <Register
+            showModal={showModal}
+            closeModal={closeModal}
+            decidepage={decidepage}
+          ></Register>
+        </div>
+        헤드
+      </Head>
+      <Register />
     </>
   );
 }
@@ -30,7 +65,6 @@ function Header() {
 const Head = styled.div`
   height: 80px;
   background-color: #cbcbfe;
-  text-align: center;
 `;
 
 export default Header;
