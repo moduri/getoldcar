@@ -1,25 +1,30 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useRef } from "react";
 import styled from "styled-components";
-import axios from "axios";
-import $ from "jquery";
+import { useDispatch, useSelector } from "react-redux";
+import { _GetRegister } from "../redux/RegisterSlice";
 
 function Register({ showModal, closeModal, decidepage }) {
+  const state = useSelector((state) => state);
+  const dispatch = useDispatch();
   const CheckNicknameRef = useRef(null);
 
   const idcheck = useRef(null);
   const pswdcheck = useRef(null);
   const pswdcheck2 = useRef(null);
 
-  const _CheckNickname = async (nickname) => {
-    const { result } = await axios.get("/api/signup");
-    return result;
-  };
-
   const Getregister = () => {
-    if (pswdcheck.current.value !== pswdcheck2.current.value) {
+    if (
+      pswdcheck.current.value !== pswdcheck2.current.value ||
+      idcheck.current.value.trim().length == 0
+    ) {
       document.getElementById(`pswdnotion`).style.display = "block";
     } else {
-      console.log("post보내버리기");
+      dispatch(
+        _GetRegister({
+          id: idcheck.current.value,
+          password: pswdcheck.current.value,
+        })
+      );
     }
   };
 
@@ -40,6 +45,7 @@ function Register({ showModal, closeModal, decidepage }) {
                 </div>
               </WriteBox>
               <ClickBox>
+                <CheckPswd>아이디와 비밀번호를 확인해주세요</CheckPswd>
                 <LoginRegisterBtn>로그인</LoginRegisterBtn>
               </ClickBox>
             </ModalContainer>
@@ -58,7 +64,9 @@ function Register({ showModal, closeModal, decidepage }) {
                 <InputBox ref={pswdcheck} />
                 <div>비밀번호 재확인</div>
                 <InputBox ref={pswdcheck2} />
-                <CheckPswd id="pswdnotion">비밀번호가 서로 다릅니다.</CheckPswd>
+                <CheckPswd id="pswdnotion">
+                  아이디와 비밀번호를 확인해주세요
+                </CheckPswd>
               </div>
             </WriteBox>
             <ClickBox>
@@ -123,6 +131,7 @@ const LoginRegisterBtn = styled.button`
   border: 4px solid white;
   margin-left: auto;
   margin-right: auto;
+  margin-top: 5px;
 `;
 
 const ClickBox = styled.div`
@@ -138,7 +147,7 @@ const WriteBox = styled.div`
 const InputBox = styled.input`
   border: 1px solid white;
   border-radius: 5px;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   width: 250px;
 `;
 
@@ -147,6 +156,7 @@ const CheckPswd = styled.div`
   color: #e06c6c;
   margin-top: 5px;
   font-size: 0.9em;
+  margin-bottom: 10px;
 `;
 
 export default Register;
