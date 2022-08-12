@@ -11,7 +11,7 @@ function App() {
     <BrowserRouter>
       <Header />
       <Routes>
-        <Route path="post" element={<Post />} />
+        <Route path="/" element={<Post />} />
         <Route path="write" element={<Write />} />
         <Route path="register/:path" element={<Register />} />
       </Routes>
