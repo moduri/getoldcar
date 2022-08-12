@@ -12,14 +12,14 @@ function Header() {
             navigate("register/1");
           }}
         >
-          로그인
+          로그인!
         </button>
         <button
           onClick={() => {
             navigate("register/0");
           }}
         >
-          회원가입
+          회원가입!
         </button>
       </div>
       <Head>헤드</Head>
