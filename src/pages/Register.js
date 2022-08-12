@@ -75,7 +75,7 @@ const InBox = styled.div`
 const LoginRegisterBtn = styled.button`
   background-color: #fff;
   margin-top: 15px;
-  border-radius: 5px;
+  border-radius: 6px;
 `;
 
 export default Register;
