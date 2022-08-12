@@ -1,10 +1,12 @@
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Register from "../../pages/Register";
 
 function Header() {
   const [showModal, setShowModal] = useState(false);
   const [decidepage, setDecidepage] = useState(true);
+  const navigate = useNavigate();
 
   const openModal = () => {
     setShowModal(true);
@@ -20,14 +22,18 @@ function Header() {
     setDecidepage(false);
   };
 
+  const toHome = () => {
+    navigate("/");
+  };
+
   const getedToken = true;
 
   return (
     <>
       <Head>
-        <div>
+        <BtnBox>
           {getedToken ? (
-            <>
+            <div>
               <button
                 onClick={() => {
                   toLogin();
@@ -44,25 +50,38 @@ function Header() {
               >
                 회원가입!
               </button>
-            </>
-          ) : null}
+            </div>
+          ) : (
+            <div>파이리님</div>
+          )}
 
           <Register
             showModal={showModal}
             closeModal={closeModal}
             decidepage={decidepage}
           ></Register>
-        </div>
-        헤드
+        </BtnBox>
+        <MainTitle>
+          <div onClick={toHome}>PICKCAR</div>
+        </MainTitle>
       </Head>
-      <Register />
     </>
   );
 }
 
 const Head = styled.div`
-  height: 80px;
+  height: 100px;
   background-color: #aac0f9;
+`;
+
+const BtnBox = styled.div`
+  float: right;
+  margin: 7px 7px 0px 0px;
+`;
+
+const MainTitle = styled.div`
+  font-size: 1.3em;
+  text-align: center;
 `;
 
 export default Header;

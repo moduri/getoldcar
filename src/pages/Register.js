@@ -1,9 +1,14 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
+import $ from "jquery";
 
 function Register({ showModal, closeModal, decidepage }) {
   const CheckNicknameRef = useRef(null);
+
+  const idcheck = useRef(null);
+  const pswdcheck = useRef(null);
+  const pswdcheck2 = useRef(null);
 
   const _CheckNickname = async (nickname) => {
     const { result } = await axios.get("/api/signup");
@@ -11,11 +16,15 @@ function Register({ showModal, closeModal, decidepage }) {
   };
 
   const Getregister = () => {
-    console.log(CheckNicknameRef.current.value);
+    if (pswdcheck.current.value !== pswdcheck2.current.value) {
+      document.getElementById(`pswdnotion`).style.display = "block";
+    } else {
+      console.log("post보내버리기");
+    }
   };
 
   return (
-    <>
+    <div>
       {decidepage ? (
         showModal ? (
           <Background>
@@ -24,13 +33,15 @@ function Register({ showModal, closeModal, decidepage }) {
               <TitleBox>로그인 페이지</TitleBox>
               <WriteBox>
                 <div>
-                  <p>아이디</p>
+                  <div>아이디</div>
                   <InputBox />
-                  <p>비밀번호</p>
+                  <div>비밀번호</div>
                   <InputBox />
                 </div>
               </WriteBox>
-              <LoginRegisterBtn>로그인</LoginRegisterBtn>
+              <ClickBox>
+                <LoginRegisterBtn>로그인</LoginRegisterBtn>
+              </ClickBox>
             </ModalContainer>
           </Background>
         ) : null
@@ -41,26 +52,24 @@ function Register({ showModal, closeModal, decidepage }) {
             <TitleBox>회원가입 페이지</TitleBox>
             <WriteBox>
               <div>
-                <p>아이디</p>
-                <InputBox ref={CheckNicknameRef} />
-                <NicknameCheckText id="nicknamecheck">
-                  사용 가능한 아이디 입니다.
-                </NicknameCheckText>
-                <p>비밀번호</p>
-                <InputBox />
-                <NicknameCheckText id="pswdcheck">8자리 이상</NicknameCheckText>
-                <p>비밀번호 재확인</p>
-                <InputBox />
-                <NicknameCheckText id="samepswd">
-                  같은 비밀번호 입니다.
-                </NicknameCheckText>
+                <div>아이디</div>
+                <InputBox ref={idcheck} />
+                <div>비밀번호</div>
+                <InputBox ref={pswdcheck} />
+                <div>비밀번호 재확인</div>
+                <InputBox ref={pswdcheck2} />
+                <CheckPswd id="pswdnotion">비밀번호가 서로 다릅니다.</CheckPswd>
               </div>
             </WriteBox>
-            <LoginRegisterBtn onClick={Getregister}>회원가입</LoginRegisterBtn>
+            <ClickBox>
+              <LoginRegisterBtn onClick={Getregister}>
+                회원가입
+              </LoginRegisterBtn>
+            </ClickBox>
           </ModalContainer>
         </Background>
       ) : null}
-    </>
+    </div>
   );
 }
 
@@ -85,7 +94,6 @@ const ModalContainer = styled.div`
   padding: 16px;
   background: #c8d5f5;
   border-radius: 10px;
-  text-align: center;
 `;
 
 const ExitBtn = styled.button`
@@ -105,27 +113,40 @@ const TitleBox = styled.div`
   margin: auto;
   margin-top: 30px;
   font-size: 1.2em;
+  text-align: center;
+  font-weight: 500;
 `;
 
 const LoginRegisterBtn = styled.button`
   background-color: #fff;
-  margin-top: 20px;
   border-radius: 6px;
   border: 4px solid white;
+  margin-left: auto;
+  margin-right: auto;
+`;
+
+const ClickBox = styled.div`
+  text-align: center;
 `;
 
 const WriteBox = styled.div`
   justify-content: center;
-  margin-top: 30px;
+  width: 50%;
+  margin: 30px 30px 0px 90px;
 `;
 
 const InputBox = styled.input`
   border: 1px solid white;
   border-radius: 5px;
+  margin-bottom: 20px;
+  width: 250px;
 `;
 
-const NicknameCheckText = styled.div`
+const CheckPswd = styled.div`
   display: none;
+  color: #e06c6c;
+  margin-top: 5px;
+  font-size: 0.9em;
 `;
 
 export default Register;
