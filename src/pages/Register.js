@@ -7,14 +7,51 @@ import { _GetRegister } from "../redux/RegisterSlice";
 
 function Register({ showModal, closeModal, decidepage }) {
   const dispatch = useDispatch();
-  console.log("재");
+  console.log("렌더링");
 
   const idcheck = useRef(null);
   const pswdcheck = useRef(null);
   const pswdcheck2 = useRef(null);
 
+  const Getregister = () => {
+    const regExp = /[!?@#$%^&*():;+-=~{}<>\_\[\]\|\\\"\'\,\.\/\`\₩]/g;
+    if (
+      pswdcheck.current.value !== pswdcheck2.current.value ||
+      idcheck.current.value.trim().length == 0
+    ) {
+      document.getElementById(`pswdnotion`).style.display = "block";
+      // 비밀번호와 확인용 비밀번호가 서로 다를때 아이디가 아무것도 없을때
+    } else if (
+      pswdcheck.current.value.search(/\s/) !== -1 ||
+      idcheck.current.value.search(/\s/) !== -1
+    ) {
+      document.getElementById(`pswdnotion`).style.display = "block";
+      // 아이디나 비밀번호에 공백이 있을때
+    } else if (!regExp.test(pswdcheck.current.value)) {
+      document.getElementById(`pswdnotion2`).style.display = "block";
+      // 비밀번호에 특수문자가 들어가 있을때
+    } else if (!regExp.test(idcheck.current.value)) {
+      document.getElementById(`pswdnotion2`).style.display = "block";
+      // 아이디에 특수문자가 있을 때
+    } else if (
+      pswdcheck.current.value.trim().length > 11 ||
+      pswdcheck.current.value.trim().length < 4
+    ) {
+      document.getElementById(`pswdnotion`).style.display = "block";
+      // 비밀번호의 길이가 4 < 비밀번호 < 11 일때
+    } else if (
+      idcheck.current.value.length > 5 ||
+      idcheck.current.value.length < 2
+    ) {
+      document.getElementById(`pswdnotion`).style.display = "block";
+      // 아이디의 길이가 2 < 아이디 < 5 일때
+    } else {
+      getCookie();
+    }
+  };
+
   // post 보낼 부분
-  const getCookie = () => {
+  function getCookie() {
     alert("회원가입 완료!");
     document.getElementById("exitBtn").click();
     // dispatch(
@@ -23,41 +60,7 @@ function Register({ showModal, closeModal, decidepage }) {
     //     password: pswdcheck.current.value,
     //   })
     // );
-  };
-
-  const Getregister = (id, pswd, pswd2) => {
-    const regExp = /[!?@#$%^&*():;+-=~{}<>\_\[\]\|\\\"\'\,\.\/\`\₩]/g;
-    if (
-      pswd.current.value !== pswd2.current.value ||
-      id.current.value.trim().length == 0
-    ) {
-      document.getElementById(`pswdnotion`).style.display = "block";
-      // 비밀번호와 확인용 비밀번호가 서로 다를때
-    } else if (
-      pswd.current.value.search(/\s/) !== -1 ||
-      id.current.value.search(/\s/) !== -1
-    ) {
-      document.getElementById(`pswdnotion`).style.display = "block";
-      // 아이디나 비밀번호에 공백이 있을때
-    } else if (regExp.test(pswd.current.value)) {
-      document.getElementById(`pswdnotion2`).style.display = "block";
-      // 비밀번호에 특수문자가 들어가 있을때
-    } else if (regExp.test(id.current.value)) {
-      document.getElementById(`pswdnotion2`).style.display = "block";
-      // 아이디에 특수문자가 있을 때
-    } else if (
-      pswd.current.value.trim().length > 11 ||
-      pswd.current.value.trim().length < 4
-    ) {
-      document.getElementById(`pswdnotion`).style.display = "block";
-      // 비밀번호의 길이가 4 < 비밀번호 < 11 일때
-    } else if (id.current.value.length > 5 || id.current.value.length < 2) {
-      document.getElementById(`pswdnotion`).style.display = "block";
-      // 아이디의 길이가 2 < 아이디 < 5 일때
-    } else {
-      getCookie();
-    }
-  };
+  }
 
   return (
     <div>
@@ -106,15 +109,7 @@ function Register({ showModal, closeModal, decidepage }) {
               </div>
             </WriteBox>
             <ClickBox>
-              <RegisterBtn
-                onClick={Getregister(
-                  idcheck.current.value,
-                  pswdcheck.current.value,
-                  pswdcheck2.current.value
-                )}
-              >
-                회원가입
-              </RegisterBtn>
+              <RegisterBtn onClick={Getregister}>회원가입</RegisterBtn>
             </ClickBox>
           </ModalContainer>
         </Background>
