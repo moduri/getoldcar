@@ -3,10 +3,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import React from "react";
 import Header from "./components/common/Header";
 import Home from "./pages/Home";
-import Write from "./pages/Write";
+import Write from "./pages/write/Write";
 import Register from "./pages/Register";
 import GlobalStyle from "./styles/GlobalStyle";
-import Detail from "./pages/Detail";
+import Detail from "./pages/detail/Detail";
 
 function App() {
   return (
@@ -15,9 +15,9 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/" element={<Register />} />
         <Route path="write" element={<Write />} />
         <Route path="detail/:id" element={<Detail />} />
-        <Route path="/" element={<Register />} />
       </Routes>
     </BrowserRouter>
   );
