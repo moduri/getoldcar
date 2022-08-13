@@ -13,7 +13,7 @@ function Register({ showModal, closeModal, decidepage }) {
 
   // post 보낼 부분
   const getCookie = () => {
-    alert("회원가입 완료");
+    alert("회원가입 완료!");
     document.getElementById("exitBtn").click();
     // dispatch(
     //   _GetRegister({
@@ -78,7 +78,7 @@ function Register({ showModal, closeModal, decidepage }) {
               </WriteBox>
               <ClickBox>
                 <CheckPswd>아이디와 비밀번호를 확인해주세요</CheckPswd>
-                <LoginRegisterBtn>로그인</LoginRegisterBtn>
+                <LoginBtn>로그인</LoginBtn>
               </ClickBox>
             </ModalContainer>
           </Background>
@@ -107,9 +107,7 @@ function Register({ showModal, closeModal, decidepage }) {
               </div>
             </WriteBox>
             <ClickBox>
-              <LoginRegisterBtn onClick={Getregister}>
-                회원가입
-              </LoginRegisterBtn>
+              <RegisterBtn onClick={Getregister}>회원가입</RegisterBtn>
             </ClickBox>
           </ModalContainer>
         </Background>
@@ -118,6 +116,7 @@ function Register({ showModal, closeModal, decidepage }) {
   );
 }
 
+// 모달 부분 시작
 const Background = styled.div`
   position: fixed;
   top: 0;
@@ -140,6 +139,7 @@ const ModalContainer = styled.div`
   background: #c8d5f5;
   border-radius: 10px;
 `;
+// 모달 부분 끝
 
 const ExitBtn = styled.button`
   margin-top: -5px;
@@ -164,15 +164,26 @@ const TitleBox = styled.div`
 
 const TextBox = styled.div`
   font-size: 1.1em;
+  margin-top: -3px;
 `;
 
-const LoginRegisterBtn = styled.button`
+const RegisterBtn = styled.button`
   background-color: #fff;
   border-radius: 6px;
   border: 4px solid white;
   margin-left: auto;
   margin-right: auto;
   margin-top: 10px;
+  font-size: 110%;
+`;
+
+const LoginBtn = styled.button`
+  background-color: #fff;
+  border-radius: 6px;
+  border: 4px solid white;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 35px;
   font-size: 110%;
 `;
 
