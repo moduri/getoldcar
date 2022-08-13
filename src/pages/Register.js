@@ -11,6 +11,18 @@ function Register({ showModal, closeModal, decidepage }) {
   const pswdcheck = useRef(null);
   const pswdcheck2 = useRef(null);
 
+  // post 보낼 부분
+  const getCookie = () => {
+    alert("회원가입 완료");
+    document.getElementById("exitBtn").click();
+    // dispatch(
+    //   _GetRegister({
+    //     id: idcheck.current.value,
+    //     password: pswdcheck.current.value,
+    //   })
+    // );
+  };
+
   const regExp = /[!?@#$%^&*():;+-=~{}<>\_\[\]\|\\\"\'\,\.\/\`\₩]/g;
   const Getregister = () => {
     if (
@@ -19,6 +31,12 @@ function Register({ showModal, closeModal, decidepage }) {
     ) {
       document.getElementById(`pswdnotion`).style.display = "block";
       // 비밀번호와 확인용 비밀번호가 서로 다를때
+    } else if (
+      pswdcheck.current.value.search(/\s/) !== -1 ||
+      idcheck.current.value.search(/\s/) !== -1
+    ) {
+      document.getElementById(`pswdnotion`).style.display = "block";
+      // 아이디나 비밀번호에 공백이 있을때
     } else if (regExp.test(pswdcheck.current.value)) {
       document.getElementById(`pswdnotion2`).style.display = "block";
       // 비밀번호에 특수문자가 들어가 있을때
@@ -38,18 +56,8 @@ function Register({ showModal, closeModal, decidepage }) {
       document.getElementById(`pswdnotion`).style.display = "block";
       // 아이디의 길이가 2 < 아이디 < 5 일때
     } else {
-      alert("회원가입 완료");
+      getCookie();
     }
-
-    // post 보낼 부분
-    const getCookie = () => {
-      dispatch(
-        _GetRegister({
-          id: idcheck.current.value,
-          password: pswdcheck.current.value,
-        })
-      );
-    };
   };
 
   return (
@@ -78,7 +86,9 @@ function Register({ showModal, closeModal, decidepage }) {
       ) : showModal ? (
         <Background>
           <ModalContainer>
-            <ExitBtn onClick={closeModal}>X</ExitBtn>
+            <ExitBtn onClick={closeModal} id="exitBtn">
+              X
+            </ExitBtn>
             <TitleBox>회원가입</TitleBox>
             <WriteBox>
               <div>
