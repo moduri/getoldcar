@@ -40,7 +40,7 @@ function Header() {
                   openModal();
                 }}
               >
-                로그인!
+                로그인
               </button>
               <button
                 onClick={() => {
@@ -48,11 +48,14 @@ function Header() {
                   openModal();
                 }}
               >
-                회원가입!
+                회원가입
               </button>
             </div>
           ) : (
-            <div>파이리님</div>
+            <NicknameLogout>
+              <div>파이리님</div>
+              <button>로그아웃</button>
+            </NicknameLogout>
           )}
 
           <Register
@@ -76,12 +79,34 @@ const Head = styled.div`
 
 const BtnBox = styled.div`
   float: right;
-  margin: 7px 7px 0px 0px;
+  margin: 8px 10px 0px 0px;
+  button {
+    margin: 0px 13px 0px 3px;
+    border: 1px solid white;
+    background-color: white;
+    border-radius: 5px;
+    padding: 5px;
+  }
 `;
 
 const MainTitle = styled.div`
   font-size: 1.3em;
   text-align: center;
+  padding-top: 37px;
+`;
+
+const NicknameLogout = styled.div`
+  display: flex;
+  button {
+    margin: 0px 13px 0px 13px;
+    border: 1px solid white;
+    border-radius: 5px;
+    background-color: white;
+    padding: 5px;
+  }
+  div {
+    margin: 3px 13px 0px 13px;
+  }
 `;
 
 export default Header;
