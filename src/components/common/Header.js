@@ -28,6 +28,20 @@ function Header() {
 
   const getedToken = true;
 
+  //쿠키삭제
+  function deleteCookie(name) {
+    document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
+  }
+  // deleteCookie(변수이름)  deleteCookie('name');
+
+  var getCookie = function (name) {
+    var value = document.cookie.match("(^|;) ?" + name + "=([^;]*)(;|$)");
+    return value ? value[2] : null;
+  };
+
+  // getCookie(변수이름)  var is_expend = getCookie("expend");
+  // console.log("쿠키 is_expend변수에 저장된 값: " + is_expend);
+
   return (
     <>
       <Head>
