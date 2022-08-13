@@ -13,6 +13,25 @@ const mydata = [
   },
 
   {
+    postId: 11,
+    userId: 1,
+    nickname: "디벨로퍼",
+    title:
+      "안녕하세요 22번째 게시글 제목입니다.안녕하세요 22번째 게시글 제목입니다.안녕하세요 22번째 게시글 제목입니다.안녕하세요 22번째 게시글 제목입니다.안녕하세요 22번째 게시글 제목입니다.https://www.naver.com",
+    createdAt: "22.08.04",
+    updatedAt: "22.08.04",
+  },
+  {
+    postId: 22,
+    userId: 1,
+    nickname: "디벨로퍼",
+    title:
+      "안녕하세요 22번째 게시글 제목입니다.안녕하세요 22번째 게시글 제목입니다.안녕하세요 22번째 게시글 제목입니다.안녕하세요 22번째 게시글 제목입니다.안녕하세요 22번째 게시글 제목입니다.https://www.naver.com",
+    createdAt: "22.08.04",
+    updatedAt: "22.08.04",
+  },
+
+  {
     postId: 4,
     userId: 3,
     nickname: "디벨로퍼",

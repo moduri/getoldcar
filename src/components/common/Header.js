@@ -28,20 +28,6 @@ function Header() {
 
   const getedToken = true;
 
-  //쿠키삭제
-  function deleteCookie(name) {
-    document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
-  }
-  // deleteCookie(변수이름)  deleteCookie('name');
-
-  var getCookie = function (name) {
-    var value = document.cookie.match("(^|;) ?" + name + "=([^;]*)(;|$)");
-    return value ? value[2] : null;
-  };
-
-  // getCookie(변수이름)  var is_expend = getCookie("expend");
-  // console.log("쿠키 is_expend변수에 저장된 값: " + is_expend);
-
   return (
     <>
       <Head>
@@ -88,7 +74,57 @@ function Header() {
 
 const Head = styled.div`
   height: 100px;
-  background-color: #aac0f9;
+  /* background-color: #6fa3e2; */
+  background-image: url("https://www.motorgraph.com/news/photo/202107/27856_88738_050.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 0% 50%;
+
+  -webkit-animation: focus-in-expand-fwd 0.8s
+    cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  animation: focus-in-expand-fwd 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+  /* @-webkit-keyframes focus-in-expand-fwd {
+    0% {
+      letter-spacing: -0.5em;
+      -webkit-transform: translateZ(-800px);
+      transform: translateZ(-800px);
+      -webkit-filter: blur(12px);
+      filter: blur(12px);
+      opacity: 0;
+    }
+    100% {
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      -webkit-filter: blur(0);
+      filter: blur(0);
+      opacity: 1;
+    }
+  } */
+  @keyframes focus-in-expand-fwd {
+    0% {
+      letter-spacing: -0.5em;
+      -webkit-transform: translateZ(-800px);
+      transform: translateZ(-800px);
+      -webkit-filter: blur(12px);
+      filter: blur(12px);
+      opacity: 0;
+    }
+    50% {
+      -webkit-transform: translateZ(-400px);
+      transform: translateZ(-400px);
+      -webkit-filter: blur(6px);
+      filter: blur(12px);
+      opacity: 1;
+    }
+    100% {
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      -webkit-filter: blur(0);
+      filter: blur(0);
+      opacity: 1;
+    }
+  }
 `;
 
 const BtnBox = styled.div`
@@ -113,6 +149,7 @@ const MainTitle = styled.div`
   font-size: 1.3em;
   text-align: center;
   padding-top: 37px;
+  color: white;
 `;
 
 const NicknameLogout = styled.div`
