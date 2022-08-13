@@ -48,22 +48,22 @@ function Header() {
         <BtnBox>
           {getedToken ? (
             <div>
-              <button
+              <LoginRegister
                 onClick={() => {
                   toLogin();
                   openModal();
                 }}
               >
                 로그인
-              </button>
-              <button
+              </LoginRegister>
+              <LoginRegister
                 onClick={() => {
                   toRegister();
                   openModal();
                 }}
               >
                 회원가입
-              </button>
+              </LoginRegister>
             </div>
           ) : (
             <NicknameLogout>
@@ -94,13 +94,19 @@ const Head = styled.div`
 const BtnBox = styled.div`
   float: right;
   margin: 8px 10px 0px 0px;
-  button {
-    margin: 0px 13px 0px 3px;
-    border: 1px solid white;
-    background-color: white;
-    border-radius: 5px;
-    padding: 5px;
-  }
+`;
+
+const GetBtn = styled.button`
+  background-color: white;
+`;
+
+const LoginRegister = styled.button`
+  background-color: #fff;
+  border-radius: 6px;
+  border: 4px solid white;
+  margin-left: auto;
+  margin-right: auto;
+  margin-left: 20px;
 `;
 
 const MainTitle = styled.div`

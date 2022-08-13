@@ -4,28 +4,52 @@ import { useDispatch, useSelector } from "react-redux";
 import { _GetRegister } from "../redux/RegisterSlice";
 
 function Register({ showModal, closeModal, decidepage }) {
-  const state = useSelector((state) => state);
   const dispatch = useDispatch();
-  const CheckNicknameRef = useRef(null);
+  console.log("재");
 
   const idcheck = useRef(null);
   const pswdcheck = useRef(null);
   const pswdcheck2 = useRef(null);
 
+  const regExp = /[!?@#$%^&*():;+-=~{}<>\_\[\]\|\\\"\'\,\.\/\`\₩]/g;
   const Getregister = () => {
     if (
       pswdcheck.current.value !== pswdcheck2.current.value ||
       idcheck.current.value.trim().length == 0
     ) {
       document.getElementById(`pswdnotion`).style.display = "block";
+      // 비밀번호와 확인용 비밀번호가 서로 다를때
+    } else if (regExp.test(pswdcheck.current.value)) {
+      document.getElementById(`pswdnotion2`).style.display = "block";
+      // 비밀번호에 특수문자가 들어가 있을때
+    } else if (regExp.test(idcheck.current.value)) {
+      document.getElementById(`pswdnotion2`).style.display = "block";
+      // 아이디에 특수문자가 있을 때
+    } else if (
+      pswdcheck.current.value.trim().length > 11 ||
+      pswdcheck.current.value.trim().length < 4
+    ) {
+      document.getElementById(`pswdnotion`).style.display = "block";
+      // 비밀번호의 길이가 4 < 비밀번호 < 11 일때
+    } else if (
+      idcheck.current.value.length > 5 ||
+      idcheck.current.value.length < 2
+    ) {
+      document.getElementById(`pswdnotion`).style.display = "block";
+      // 아이디의 길이가 2 < 아이디 < 5 일때
     } else {
+      alert("회원가입 완료");
+    }
+
+    // post 보낼 부분
+    const getCookie = () => {
       dispatch(
         _GetRegister({
           id: idcheck.current.value,
           password: pswdcheck.current.value,
         })
       );
-    }
+    };
   };
 
   return (
@@ -35,13 +59,13 @@ function Register({ showModal, closeModal, decidepage }) {
           <Background>
             <ModalContainer>
               <ExitBtn onClick={closeModal}>X</ExitBtn>
-              <TitleBox>로그인 페이지</TitleBox>
+              <TitleBox>로그인</TitleBox>
               <WriteBox>
                 <div>
-                  <div>아이디</div>
+                  <TextBox>아이디</TextBox>
                   <InputBox />
-                  <div>비밀번호</div>
-                  <InputBox />
+                  <TextBox>비밀번호</TextBox>
+                  <InputBox type="password" />
                 </div>
               </WriteBox>
               <ClickBox>
@@ -55,18 +79,21 @@ function Register({ showModal, closeModal, decidepage }) {
         <Background>
           <ModalContainer>
             <ExitBtn onClick={closeModal}>X</ExitBtn>
-            <TitleBox>회원가입 페이지</TitleBox>
+            <TitleBox>회원가입</TitleBox>
             <WriteBox>
               <div>
-                <div>아이디</div>
+                <TextBox>아이디</TextBox>
                 <InputBox ref={idcheck} />
-                <div>비밀번호</div>
-                <InputBox ref={pswdcheck} />
-                <div>비밀번호 재확인</div>
-                <InputBox ref={pswdcheck2} />
+                <AlertText>2~5글자/영대소문자,숫자 포함</AlertText>
+                <TextBox>비밀번호</TextBox>
+                <InputBox ref={pswdcheck} type="password" />
+                <AlertText>4~10글자/영대소문자,숫자 포함</AlertText>
+                <TextBox>비밀번호 재확인</TextBox>
+                <InputBox ref={pswdcheck2} type="password" />
                 <CheckPswd id="pswdnotion">
                   아이디와 비밀번호를 확인해주세요
                 </CheckPswd>
+                <CheckPswd id="pswdnotion2">특수문자를 제외해주세요</CheckPswd>
               </div>
             </WriteBox>
             <ClickBox>
@@ -109,7 +136,7 @@ const ExitBtn = styled.button`
   margin-right: -5px;
   float: right;
   color: #e06c6c;
-  font-size: 1.5em;
+  font-size: 1.3em;
   background-color: #c8d5f5;
   border: 1px solid #c8d5f5;
   :hover {
@@ -120,9 +147,13 @@ const ExitBtn = styled.button`
 const TitleBox = styled.div`
   margin: auto;
   margin-top: 30px;
-  font-size: 1.2em;
+  font-size: 1.4em;
   text-align: center;
   font-weight: 500;
+`;
+
+const TextBox = styled.div`
+  font-size: 1.1em;
 `;
 
 const LoginRegisterBtn = styled.button`
@@ -131,7 +162,8 @@ const LoginRegisterBtn = styled.button`
   border: 4px solid white;
   margin-left: auto;
   margin-right: auto;
-  margin-top: 5px;
+  margin-top: 10px;
+  font-size: 110%;
 `;
 
 const ClickBox = styled.div`
@@ -147,8 +179,14 @@ const WriteBox = styled.div`
 const InputBox = styled.input`
   border: 1px solid white;
   border-radius: 5px;
-  margin-bottom: 15px;
   width: 250px;
+  margin-bottom: 5px;
+`;
+
+const AlertText = styled.div`
+  margin-top: 3px;
+  margin-bottom: 12px;
+  color: #6a6a6a;
 `;
 
 const CheckPswd = styled.div`
