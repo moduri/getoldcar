@@ -4,18 +4,14 @@ import { current } from "@reduxjs/toolkit";
 
 export const _GetRegister = createAsyncThunk(
   "user/signup",
-  async (userData, thunkAPI) => {
-    try {
-      console.log(userData);
-      const result = await axios.post(
-        `https://13.209.87.191/api/signup`,
-        userData
-      );
-      console.log(result);
-      return thunkAPI.fulfillWithValue(result.data);
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error);
-    }
+  async (userData) => {
+    console.log(userData);
+    const result = await axios.post(
+      `http://13.209.87.191/api/signup`,
+      userData
+    );
+    console.log(result);
+    return result.data;
   }
 );
 
@@ -25,7 +21,7 @@ export const _GetUserData = createAsyncThunk(
     try {
       console.log(userInptData);
       const result = await axios.post(
-        `https://13.209.87.191/api/login`,
+        `http://13.209.87.191/api/login`,
         userInptData
       );
       console.log(result);
@@ -36,10 +32,14 @@ export const _GetUserData = createAsyncThunk(
   }
 );
 
+export const _Login = async (value) => {
+  const response = await axios.post("https://13.209.87.191/api/login", value);
+  console.log(response);
+};
+
 const initialState = {
   register: {
-    id: 0,
-    name: "",
+    nickname: "",
   },
   isLoading: false,
   error: null,
@@ -52,7 +52,6 @@ const RegisterSlice = createSlice({
   extraReducers: {
     [_GetRegister.fulfilled]: (state, action) => {
       console.log(current(state), action);
-      state.article = action.payload;
     },
     [_GetRegister.rejected]: (state, action) => {
       state.error = action.payload;

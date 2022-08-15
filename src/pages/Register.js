@@ -2,9 +2,8 @@ import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { useCookies } from "react-cookie";
+import { useCookies, withCookies } from "react-cookie";
 import { _GetRegister, _GetUserData } from "../redux/RegisterSlice";
-import { useNavigate } from "react-router-dom";
 
 function Register({ showModal, closeModal, decidepage }) {
   const dispatch = useDispatch();
@@ -17,7 +16,9 @@ function Register({ showModal, closeModal, decidepage }) {
   const pswdcheck = useRef(null);
   const pswdcheck2 = useRef(null);
 
+  // 회원가입시 아이디와 비밀번호를 받아서 유효성 검사를 하고 toRegister 함수를 실행
   const Getregister = () => {
+    console.log("유효성 테스트 실행됌");
     const regExp = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/g;
     if (
       pswdcheck.current.value !== pswdcheck2.current.value ||
@@ -44,69 +45,34 @@ function Register({ showModal, closeModal, decidepage }) {
       document.getElementById(`pswdnotion`).style.display = "block";
       // 비밀번호의 길이가 4 < 비밀번호 < 11 일때
     } else if (
-      idcheck.current.value.length > 5 ||
+      idcheck.current.value.length > 8 ||
       idcheck.current.value.length < 2
     ) {
       document.getElementById(`pswdnotion`).style.display = "block";
       // 아이디의 길이가 2 < 아이디 < 5 일때
     } else {
-      toRegister();
+      // 정보를 보내서 회원가입 시도
+      const Getregister2 = async () => {
+        console.log("회원가입 정보 보내기 시도");
+        const userData = {
+          nickname: idcheck.current.value,
+          password: pswdcheck.current.value,
+          confirmPassword: pswdcheck2.current.value,
+        };
+        try {
+          const result = await axios.post(
+            `http://13.209.87.191/api/signup`,
+            userData
+          );
+          alert(result.data.message);
+          document.getElementById("exitBtn").click();
+        } catch (error) {
+          console.log(error);
+          alert("이미 존재하는 아이디입니다.");
+        }
+      };
+      Getregister2();
     }
-  };
-
-  // post 보낼 부분
-  function toRegister() {
-    alert("회원가입 완료!");
-    document.getElementById("exitBtn").click();
-    dispatch(
-      _GetRegister({
-        nickname: idcheck.current.value,
-        password: pswdcheck.current.value,
-        confirmPassword: pswdcheck2.current.value,
-      })
-    );
-  }
-
-  const [cookie, setCookie] = useCookies(["id"]);
-  const navigate = useNavigate();
-
-  const login = async (e) => {
-    axios
-      .post("https://13.209.87.191/api/login", {
-        nickname: userId.current.value,
-        password: userPswd.current.value,
-      })
-      // 로그인 요청
-      .then((response) => {
-        console.log(response);
-        setCookie("id", response.data.token);
-        // 쿠키에 토큰 저장
-      });
-  };
-
-  const [cookies, setCookies, removeCookies] = useCookies(["id"]);
-  const [userID, setUserID] = useState(null);
-
-  const authCheck = () => {
-    const token = cookies.id;
-    // 쿠키에서 아이디 빼기
-    axios
-      .post("https://13.209.87.191/api/login", { token: token })
-      .then((response) => {
-        setUserID(response.data.id);
-      })
-      .catch(() => {
-        logOut();
-        //애러 발생시
-      });
-  };
-
-  useEffect(() => {
-    authCheck();
-  });
-
-  const logOut = () => {
-    removeCookies("id");
   };
 
   return (
@@ -132,17 +98,12 @@ function Register({ showModal, closeModal, decidepage }) {
               <ClickBox>
                 <CheckPswd>아이디와 비밀번호를 확인해주세요</CheckPswd>
                 <LoginBtn
-                  // onClick={() => {
-                  //   dispatch(
-                  //     _GetUserData({
-                  //       nickname: userId.current.value,
-                  //       password: userPswd.current.value,
-                  //     })
-                  //   );
-                  // }}
-                  onClick={() => {
-                    login();
-                  }}
+                // onClick={() => {
+                //   login({
+                //     nickname: userId.current.value,
+                //     password: userPswd.current.value,
+                //   });
+                // }}
                 >
                   로그인
                 </LoginBtn>
@@ -161,7 +122,7 @@ function Register({ showModal, closeModal, decidepage }) {
               <div>
                 <TextBox>아이디</TextBox>
                 <InputBox placeholder="ID" ref={idcheck} />
-                <AlertText>2~5글자/영대소문자,숫자 포함</AlertText>
+                <AlertText>2~8글자/영대소문자,숫자 포함</AlertText>
                 <TextBox>비밀번호</TextBox>
                 <InputBox
                   placeholder="PASSWORD"
@@ -182,7 +143,13 @@ function Register({ showModal, closeModal, decidepage }) {
               </div>
             </WriteBox>
             <ClickBox>
-              <RegisterBtn onClick={Getregister}>회원가입</RegisterBtn>
+              <RegisterBtn
+                onClick={() => {
+                  Getregister();
+                }}
+              >
+                회원가입
+              </RegisterBtn>
             </ClickBox>
           </ModalContainer>
         </Background>
