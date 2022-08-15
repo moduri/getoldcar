@@ -2,12 +2,13 @@ import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { useCookies, withCookies } from "react-cookie";
-import { _GetRegister, _GetUserData } from "../redux/RegisterSlice";
+import { useCookies } from "react-cookie";
+import { SendNickname } from "../redux/nicknameSlice";
 
 function Register({ showModal, closeModal, decidepage }) {
   const dispatch = useDispatch();
-  console.log("렌더링");
+  const state = useSelector((state) => state);
+  const [cookies, setCookie] = useCookies(["id"]);
 
   const userId = useRef(null);
   const userPswd = useRef(null);
@@ -16,7 +17,32 @@ function Register({ showModal, closeModal, decidepage }) {
   const pswdcheck = useRef(null);
   const pswdcheck2 = useRef(null);
 
-  // 회원가입시 아이디와 비밀번호를 받아서 유효성 검사를 하고 toRegister 함수를 실행
+  // console.log("렌더링");
+  // console.log(cookies.id);
+
+  const Login = async () => {
+    const userData = {
+      nickname: userId.current.value,
+      password: userPswd.current.value,
+    };
+    try {
+      const response = await axios.post(
+        `http://13.209.87.191/api/login`,
+        userData
+      );
+      setCookie("id", response.data.token);
+      console.log(response.data.nickname);
+      dispatch(SendNickname(response.data.nickname));
+      // document.getElementById("exitBtn2").click();
+    } catch (error) {
+      console.log(error);
+      alert("아이디 또는 비밀번호가 잘못됐습니다.");
+    }
+  };
+
+  // console.log(state.nicknameSlice.nickanme);
+
+  // 회원가입 onclick > 아이디와 비밀번호를 받아서 유효성 검사를 하고 Register 함수를 실행
   const Getregister = () => {
     console.log("유효성 테스트 실행됌");
     const regExp = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/g;
@@ -52,7 +78,7 @@ function Register({ showModal, closeModal, decidepage }) {
       // 아이디의 길이가 2 < 아이디 < 5 일때
     } else {
       // 정보를 보내서 회원가입 시도
-      const Getregister2 = async () => {
+      const Register = async () => {
         console.log("회원가입 정보 보내기 시도");
         const userData = {
           nickname: idcheck.current.value,
@@ -70,11 +96,10 @@ function Register({ showModal, closeModal, decidepage }) {
           document.getElementById("exitBtn").click();
           console.log(3);
         } catch (error) {
-          console.log(error);
-          alert("이미 존재하는 아이디입니다.");
+          alert(error.response.data.errorMessage);
         }
       };
-      Getregister2();
+      Register();
     }
   };
 
@@ -84,7 +109,9 @@ function Register({ showModal, closeModal, decidepage }) {
         showModal ? (
           <Background>
             <ModalContainer>
-              <ExitBtn onClick={closeModal}>X</ExitBtn>
+              <ExitBtn onClick={closeModal} id="exitBtn2">
+                X
+              </ExitBtn>
               <TitleBox>로그인</TitleBox>
               <WriteBox>
                 <div>
@@ -101,12 +128,9 @@ function Register({ showModal, closeModal, decidepage }) {
               <ClickBox>
                 <CheckPswd>아이디와 비밀번호를 확인해주세요</CheckPswd>
                 <LoginBtn
-                // onClick={() => {
-                //   login({
-                //     nickname: userId.current.value,
-                //     password: userPswd.current.value,
-                //   });
-                // }}
+                  onClick={() => {
+                    Login();
+                  }}
                 >
                   로그인
                 </LoginBtn>

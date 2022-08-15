@@ -10,7 +10,7 @@ const Home = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  console.log(state2);
+  // console.log(state2);
 
   useEffect(() => {
     dispatch(_GetPosted());

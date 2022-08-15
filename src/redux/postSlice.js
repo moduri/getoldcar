@@ -47,6 +47,7 @@ export const _GetPosted = createAsyncThunk(
     try {
       const result = await axios.get("http://13.209.87.191/api");
       console.log(result);
+
       return thunkAPI.fulfillWithValue(result.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);

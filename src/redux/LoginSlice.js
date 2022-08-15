@@ -19,11 +19,6 @@ export const _GetUserData = createAsyncThunk(
   }
 );
 
-export const _Login = async (value) => {
-  const response = await axios.post("https://13.209.87.191/api/login", value);
-  console.log(response);
-};
-
 const initialState = {
   register: {
     nickname: "",
@@ -31,7 +26,6 @@ const initialState = {
   isLoading: false,
   error: null,
 };
-
 const RegisterSlice = createSlice({
   name: "detail",
   initialState,
