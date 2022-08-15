@@ -1,33 +1,46 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 import styled from "styled-components";
 import Register from "../../pages/Register";
 import { useCookies } from "react-cookie";
 import { useSelector } from "react-redux";
 
 function Header() {
+  const state = useSelector((state) => state.nicknameSlice);
   const [showModal, setShowModal] = useState(false);
   const [decidepage, setDecidepage] = useState(true);
   const [havecookie, setHavecookie] = useState(true);
   const navigate = useNavigate();
   const [cookies] = useCookies();
   const idvalue = document.cookie.slice(0, 2); // 쿠키의 아이디만 가져오기 위해.
+  console.log(cookies);
+  console.log(state.nickanme);
 
   useEffect(() => {
     if (cookies.id == undefined) {
+      closeModal();
       setHavecookie(false);
     } else {
+      closeModal();
       setHavecookie(true);
     }
-  }, [document.cookie]);
+  }, [cookies]);
 
   //쿠키 삭제
   const deleteCookie = function (id) {
     console.log("삭제");
     document.cookie =
       id + "=; expires=Thu, 01 Jan 1999 00:00:10 GMT;domain=localhost;path=/;";
+    if (window.location.pathname == "/write") {
+      navigate("/");
+      window.location.reload();
+      // 삭제 후 상단 바뀌는거 수정해야함, 새로고침 하는 방향말고 다른 방향으로
+    } else {
+      window.location.reload();
+    }
   };
 
+  // 모달 열기 닫기
   const openModal = () => {
     setShowModal(true);
   };
@@ -35,6 +48,7 @@ function Header() {
     setShowModal(false);
   };
 
+  // 로그인창으로 열기, 회원가입창으로 열기
   const toLogin = () => {
     setDecidepage(true);
   };
@@ -42,9 +56,10 @@ function Header() {
     setDecidepage(false);
   };
 
-  const toHome = () => {
+  // 홈으로
+  function toHome() {
     navigate("/");
-  };
+  }
 
   return (
     <>
@@ -52,7 +67,7 @@ function Header() {
         <BtnBox>
           {havecookie ? (
             <NicknameLogout>
-              <div>파이리님</div>
+              <Nickname>{state.nickanme}</Nickname>
               <button
                 onClick={() => {
                   deleteCookie(idvalue);
@@ -141,6 +156,10 @@ const BtnBox = styled.div`
 
 const GetBtn = styled.button`
   background-color: white;
+`;
+
+const Nickname = styled.div`
+  color: white;
 `;
 
 const LoginRegister = styled.button`
