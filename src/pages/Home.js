@@ -5,16 +5,16 @@ import styled from "styled-components";
 import { _GetPosted } from "../redux/postSlice";
 
 const Home = () => {
-  const state = useSelector((state) => state.Post.data);
+  const state = useSelector((state) => state.Post.data.posts);
   const state2 = useSelector((state) => state);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   console.log(state2);
 
-  // useEffect(() => {
-  //   dispatch(_GetPosted());
-  // }, []);
+  useEffect(() => {
+    dispatch(_GetPosted());
+  }, []);
 
   return (
     <>
@@ -40,6 +40,9 @@ const Home = () => {
                     useId: value.userId,
                     nickname: value.nickname,
                     title: value.title,
+                    url:value.url,
+                    content:value.content,
+                    //여기에 title url content를 넣어줘야 detail페이지에서 
                   },
                 });
               }}
@@ -47,6 +50,8 @@ const Home = () => {
               <div>
                 <div>{value.nickname}</div>
                 <div>{value.title}</div>
+                <div>{value.url}</div>
+                <div>{value.content}</div>
               </div>
               <div>{value.createdAt}</div>
             </PostedBox>

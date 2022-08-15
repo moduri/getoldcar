@@ -63,7 +63,7 @@ const Write = () => {
         <Btn2
           type="button"
           onClick={() => {
-            navigate("/detail");
+            navigate("/");
           }}
         >
           취소

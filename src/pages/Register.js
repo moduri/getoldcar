@@ -60,12 +60,15 @@ function Register({ showModal, closeModal, decidepage }) {
           confirmPassword: pswdcheck2.current.value,
         };
         try {
+          console.log(1);
           const result = await axios.post(
             `http://13.209.87.191/api/signup`,
             userData
           );
+          console.log(2);
           alert(result.data.message);
           document.getElementById("exitBtn").click();
+          console.log(3);
         } catch (error) {
           console.log(error);
           alert("이미 존재하는 아이디입니다.");
