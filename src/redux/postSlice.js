@@ -13,6 +13,25 @@ const mydata = [
   },
 
   {
+    postId: 11,
+    userId: 1,
+    nickname: "디벨로퍼",
+    title:
+      "안녕하세요 22번째 게시글 제목입니다.안녕하세요 22번째 게시글 제목입니다.안녕하세요 22번째 게시글 제목입니다.안녕하세요 22번째 게시글 제목입니다.안녕하세요 22번째 게시글 제목입니다.https://www.naver.com",
+    createdAt: "22.08.04",
+    updatedAt: "22.08.04",
+  },
+  {
+    postId: 22,
+    userId: 1,
+    nickname: "디벨로퍼",
+    title:
+      "안녕하세요 22번째 게시글 제목입니다.안녕하세요 22번째 게시글 제목입니다.안녕하세요 22번째 게시글 제목입니다.안녕하세요 22번째 게시글 제목입니다.안녕하세요 22번째 게시글 제목입니다.https://www.naver.com",
+    createdAt: "22.08.04",
+    updatedAt: "22.08.04",
+  },
+
+  {
     postId: 4,
     userId: 3,
     nickname: "디벨로퍼",
@@ -26,9 +45,9 @@ export const _GetPosted = createAsyncThunk(
   "/register",
   async (value, thunkAPI) => {
     try {
-      // const result = await axios.post(`좌표`, value);
-      // return thunkAPI.fulfillWithValue(result.data)
-      return mydata;
+      const result = await axios.get(`13.209.87.191/api`);
+      console.log(result);
+      return thunkAPI.fulfillWithValue(result.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -46,12 +65,11 @@ const PostSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
-    [_GetPosted.pending]: (state) => {},
     [_GetPosted.fulfilled]: (state, action) => {
       state.data = action.payload;
     },
     [_GetPosted.rejected]: (state, action) => {
-      state.error = action.payload;
+      console.log(action.payload.message);
     },
   },
 });

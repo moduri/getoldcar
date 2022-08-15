@@ -1,36 +1,30 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
+import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { _GetRegister } from "../redux/RegisterSlice";
+import { useCookies } from "react-cookie";
+import { _GetRegister, _GetUserData } from "../redux/RegisterSlice";
+import { useNavigate } from "react-router-dom";
 
 function Register({ showModal, closeModal, decidepage }) {
   const dispatch = useDispatch();
-  console.log("재");
+  console.log("렌더링");
+
+  const userId = useRef(null);
+  const userPswd = useRef(null);
 
   const idcheck = useRef(null);
   const pswdcheck = useRef(null);
   const pswdcheck2 = useRef(null);
 
-  // post 보낼 부분
-  const getCookie = () => {
-    alert("회원가입 완료!");
-    document.getElementById("exitBtn").click();
-    // dispatch(
-    //   _GetRegister({
-    //     id: idcheck.current.value,
-    //     password: pswdcheck.current.value,
-    //   })
-    // );
-  };
-
-  const regExp = /[!?@#$%^&*():;+-=~{}<>\_\[\]\|\\\"\'\,\.\/\`\₩]/g;
   const Getregister = () => {
+    const regExp = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/g;
     if (
       pswdcheck.current.value !== pswdcheck2.current.value ||
       idcheck.current.value.trim().length == 0
     ) {
       document.getElementById(`pswdnotion`).style.display = "block";
-      // 비밀번호와 확인용 비밀번호가 서로 다를때
+      // 비밀번호와 확인용 비밀번호가 서로 다를때 아이디가 아무것도 없을때
     } else if (
       pswdcheck.current.value.search(/\s/) !== -1 ||
       idcheck.current.value.search(/\s/) !== -1
@@ -56,8 +50,63 @@ function Register({ showModal, closeModal, decidepage }) {
       document.getElementById(`pswdnotion`).style.display = "block";
       // 아이디의 길이가 2 < 아이디 < 5 일때
     } else {
-      getCookie();
+      toRegister();
     }
+  };
+
+  // post 보낼 부분
+  function toRegister() {
+    alert("회원가입 완료!");
+    document.getElementById("exitBtn").click();
+    dispatch(
+      _GetRegister({
+        nickname: idcheck.current.value,
+        password: pswdcheck.current.value,
+        confirmPassword: pswdcheck2.current.value,
+      })
+    );
+  }
+
+  const [cookie, setCookie] = useCookies(["id"]);
+  const navigate = useNavigate();
+
+  const login = async (e) => {
+    axios
+      .post("https://13.209.87.191/api/login", {
+        nickname: userId.current.value,
+        password: userPswd.current.value,
+      })
+      // 로그인 요청
+      .then((response) => {
+        console.log(response);
+        setCookie("id", response.data.token);
+        // 쿠키에 토큰 저장
+      });
+  };
+
+  const [cookies, setCookies, removeCookies] = useCookies(["id"]);
+  const [userID, setUserID] = useState(null);
+
+  const authCheck = () => {
+    const token = cookies.id;
+    // 쿠키에서 아이디 빼기
+    axios
+      .post("https://13.209.87.191/api/login", { token: token })
+      .then((response) => {
+        setUserID(response.data.id);
+      })
+      .catch(() => {
+        logOut();
+        //애러 발생시
+      });
+  };
+
+  useEffect(() => {
+    authCheck();
+  });
+
+  const logOut = () => {
+    removeCookies("id");
   };
 
   return (
@@ -71,14 +120,32 @@ function Register({ showModal, closeModal, decidepage }) {
               <WriteBox>
                 <div>
                   <TextBox>아이디</TextBox>
-                  <InputBox />
+                  <InputBox placeholder="ID" ref={userId} />
                   <TextBox>비밀번호</TextBox>
-                  <InputBox type="password" />
+                  <InputBox
+                    placeholder="PASSWORD"
+                    type="password"
+                    ref={userPswd}
+                  />
                 </div>
               </WriteBox>
               <ClickBox>
                 <CheckPswd>아이디와 비밀번호를 확인해주세요</CheckPswd>
-                <LoginBtn>로그인</LoginBtn>
+                <LoginBtn
+                  // onClick={() => {
+                  //   dispatch(
+                  //     _GetUserData({
+                  //       nickname: userId.current.value,
+                  //       password: userPswd.current.value,
+                  //     })
+                  //   );
+                  // }}
+                  onClick={() => {
+                    login();
+                  }}
+                >
+                  로그인
+                </LoginBtn>
               </ClickBox>
             </ModalContainer>
           </Background>
@@ -93,13 +160,21 @@ function Register({ showModal, closeModal, decidepage }) {
             <WriteBox>
               <div>
                 <TextBox>아이디</TextBox>
-                <InputBox ref={idcheck} />
+                <InputBox placeholder="ID" ref={idcheck} />
                 <AlertText>2~5글자/영대소문자,숫자 포함</AlertText>
                 <TextBox>비밀번호</TextBox>
-                <InputBox ref={pswdcheck} type="password" />
+                <InputBox
+                  placeholder="PASSWORD"
+                  ref={pswdcheck}
+                  type="password"
+                />
                 <AlertText>4~10글자/영대소문자,숫자 포함</AlertText>
                 <TextBox>비밀번호 재확인</TextBox>
-                <InputBox ref={pswdcheck2} type="password" />
+                <InputBox
+                  placeholder="PASSWORD"
+                  ref={pswdcheck2}
+                  type="password"
+                />
                 <CheckPswd id="pswdnotion">
                   아이디와 비밀번호를 확인해주세요
                 </CheckPswd>
@@ -136,7 +211,7 @@ const ModalContainer = styled.div`
   width: 27rem;
   height: 50%;
   padding: 16px;
-  background: #c8d5f5;
+  background: #cacaca;
   border-radius: 10px;
 `;
 // 모달 부분 끝
@@ -147,8 +222,8 @@ const ExitBtn = styled.button`
   float: right;
   color: #e06c6c;
   font-size: 1.3em;
-  background-color: #c8d5f5;
-  border: 1px solid #c8d5f5;
+  background-color: #cacaca;
+  border: 1px solid #cacaca;
   :hover {
     color: red;
   }
@@ -164,7 +239,7 @@ const TitleBox = styled.div`
 
 const TextBox = styled.div`
   font-size: 1.1em;
-  margin-top: -3px;
+  margin-top: 10px;
 `;
 
 const RegisterBtn = styled.button`
@@ -194,7 +269,7 @@ const ClickBox = styled.div`
 const WriteBox = styled.div`
   justify-content: center;
   width: 50%;
-  margin: 30px 30px 0px 90px;
+  margin: 15px 30px 0px 90px;
 `;
 
 const InputBox = styled.input`
