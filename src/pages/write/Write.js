@@ -63,7 +63,7 @@ const Write = () => {
         <Btn2
           type="button"
           onClick={() => {
-            navigate("/detail");
+            navigate("/");
           }}
         >
           취소
@@ -73,3 +73,5 @@ const Write = () => {
   );
 };
 export default Write;
+
+// pull request확인용 주석

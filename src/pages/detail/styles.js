@@ -11,21 +11,21 @@ export const PostWrapper = styled.div`
 export const Title = styled.div`
   margin: 0 auto;
   width: 70vw;
-  margin-top: 20px;
+ 
   font-weight: 700;
   font-size: 36px;
-  margin-bottom: 10px;
+  margin-bottom: 50px;
   border-bottom: solid 5px gray;
 `;
 
-export const Url = styled.input`
+export const Url = styled.div`
   margin: 0 auto;
   width: 70vw;
-  margin-top: 20px;
+  
   font-weight: 700;
   font-size: 36px;
-  margin-bottom: 10px;
-  border-bottom: solid 5px gray;
+  margin-bottom: 50px;
+  border-bottom: solid 5px red;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;

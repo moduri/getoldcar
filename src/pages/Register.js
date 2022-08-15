@@ -86,12 +86,15 @@ function Register({ showModal, closeModal, decidepage }) {
           confirmPassword: pswdcheck2.current.value,
         };
         try {
+          console.log(1);
           const result = await axios.post(
             `http://13.209.87.191/api/signup`,
             userData
           );
+          console.log(2);
           alert(result.data.message);
           document.getElementById("exitBtn").click();
+          console.log(3);
         } catch (error) {
           alert(error.response.data.errorMessage);
         }

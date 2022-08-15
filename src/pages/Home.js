@@ -40,6 +40,9 @@ const Home = () => {
                     useId: value.userId,
                     nickname: value.nickname,
                     title: value.title,
+                    url:value.url,
+                    content:value.content,
+                    //여기에 title url content를 넣어줘야 detail페이지에서 
                   },
                 });
               }}
@@ -47,6 +50,8 @@ const Home = () => {
               <div>
                 <div>{value.nickname}</div>
                 <div>{value.title}</div>
+                <div>{value.url}</div>
+                <div>{value.content}</div>
               </div>
               <div>{value.createdAt}</div>
             </PostedBox>
