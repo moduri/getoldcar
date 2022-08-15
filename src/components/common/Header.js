@@ -1,12 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Register from "../../pages/Register";
+import { useCookies } from "react-cookie";
+import { useSelector } from "react-redux";
 
 function Header() {
   const [showModal, setShowModal] = useState(false);
   const [decidepage, setDecidepage] = useState(true);
+  const [havecookie, setHavecookie] = useState(true);
   const navigate = useNavigate();
+  const [cookies] = useCookies();
+  const idvalue = document.cookie.slice(0, 2); // 쿠키의 아이디만 가져오기 위해.
+
+  useEffect(() => {
+    if (cookies.id == undefined) {
+      setHavecookie(false);
+    } else {
+      setHavecookie(true);
+    }
+  }, [document.cookie]);
+
+  //쿠키 삭제
+  const deleteCookie = function (id) {
+    console.log("삭제");
+    document.cookie =
+      id + "=; expires=Thu, 01 Jan 1999 00:00:10 GMT;domain=localhost;path=/;";
+  };
 
   const openModal = () => {
     setShowModal(true);
@@ -26,13 +46,22 @@ function Header() {
     navigate("/");
   };
 
-  const getedToken = true;
-
   return (
     <>
       <Head>
         <BtnBox>
-          {getedToken ? (
+          {havecookie ? (
+            <NicknameLogout>
+              <div>파이리님</div>
+              <button
+                onClick={() => {
+                  deleteCookie(idvalue);
+                }}
+              >
+                로그아웃
+              </button>
+            </NicknameLogout>
+          ) : (
             <div>
               <LoginRegister
                 onClick={() => {
@@ -51,11 +80,6 @@ function Header() {
                 회원가입
               </LoginRegister>
             </div>
-          ) : (
-            <NicknameLogout>
-              <div>파이리님</div>
-              <button>로그아웃</button>
-            </NicknameLogout>
           )}
 
           <Register

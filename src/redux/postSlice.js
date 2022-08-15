@@ -45,8 +45,7 @@ export const _GetPosted = createAsyncThunk(
   "/register",
   async (value, thunkAPI) => {
     try {
-      const result = await axios.get(`13.209.87.191/api`);
-      console.log(result);
+      const result = await axios.get(`http://13.209.87.191/api`);
       return thunkAPI.fulfillWithValue(result.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
