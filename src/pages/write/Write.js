@@ -1,12 +1,11 @@
 import React from "react";
 import { Title, Body, Btngroup, Btn1, Btn2, Header, Url } from "./styles";
 import { useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import { useState } from "react";
 import { postWritesThunk } from "../../redux/writeSlice";
 
 const Write = () => {
-  const state = useSelector((state) => state.nicknameSlice.nickanme);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [write, setWrite] = useState({
@@ -14,8 +13,6 @@ const Write = () => {
     content: "",
     url: "",
   });
-
-  console.log(state);
 
   const onChangeHandler = (event) => {
     const { name, value } = event.target;
