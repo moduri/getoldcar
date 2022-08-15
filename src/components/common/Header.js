@@ -75,32 +75,15 @@ function Header() {
 const Head = styled.div`
   height: 100px;
   /* background-color: #6fa3e2; */
-  background-image: url("https://www.motorgraph.com/news/photo/202107/27856_88738_050.jpg");
+  background-image: url("https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/buying-new-vers-used-1627408695.jpg");
   background-repeat: no-repeat;
   background-size: cover;
-  background-position: 0% 50%;
+  background-position: 0% 60%;
 
   -webkit-animation: focus-in-expand-fwd 0.8s
     cubic-bezier(0.25, 0.46, 0.45, 0.94);
   animation: focus-in-expand-fwd 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
 
-  /* @-webkit-keyframes focus-in-expand-fwd {
-    0% {
-      letter-spacing: -0.5em;
-      -webkit-transform: translateZ(-800px);
-      transform: translateZ(-800px);
-      -webkit-filter: blur(12px);
-      filter: blur(12px);
-      opacity: 0;
-    }
-    100% {
-      -webkit-transform: translateZ(0);
-      transform: translateZ(0);
-      -webkit-filter: blur(0);
-      filter: blur(0);
-      opacity: 1;
-    }
-  } */
   @keyframes focus-in-expand-fwd {
     0% {
       letter-spacing: -0.5em;
@@ -110,7 +93,7 @@ const Head = styled.div`
       filter: blur(12px);
       opacity: 0;
     }
-    50% {
+    15% {
       -webkit-transform: translateZ(-400px);
       transform: translateZ(-400px);
       -webkit-filter: blur(6px);

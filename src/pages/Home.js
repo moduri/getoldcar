@@ -6,14 +6,15 @@ import { _GetPosted } from "../redux/postSlice";
 
 const Home = () => {
   const state = useSelector((state) => state.Post.data);
+  const state2 = useSelector((state) => state);
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
-  console.log(state);
+  console.log(state2);
 
-  useEffect(() => {
-    dispatch(_GetPosted());
-  }, []);
+  // useEffect(() => {
+  //   dispatch(_GetPosted());
+  // }, []);
 
   return (
     <>

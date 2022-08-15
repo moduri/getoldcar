@@ -45,9 +45,9 @@ export const _GetPosted = createAsyncThunk(
   "/register",
   async (value, thunkAPI) => {
     try {
-      // const result = await axios.post(`좌표`, value);
-      // return thunkAPI.fulfillWithValue(result.data)
-      return mydata;
+      const result = await axios.get(`13.209.87.191/api`);
+      console.log(result);
+      return thunkAPI.fulfillWithValue(result.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -65,12 +65,11 @@ const PostSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: {
-    [_GetPosted.pending]: (state) => {},
     [_GetPosted.fulfilled]: (state, action) => {
       state.data = action.payload;
     },
     [_GetPosted.rejected]: (state, action) => {
-      state.error = action.payload;
+      console.log(action.payload.message);
     },
   },
 });
