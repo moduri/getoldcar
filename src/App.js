@@ -2,10 +2,11 @@ import "./App.css";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import React from "react";
 import Header from "./components/common/Header";
-import Post from "./pages/Post";
-import Write from "./pages/Write";
+import Home from "./pages/Home";
+import Write from "./pages/write/Write";
 import Register from "./pages/Register";
 import GlobalStyle from "./styles/GlobalStyle";
+import Detail from "./pages/detail/Detail";
 
 function App() {
   return (
@@ -13,9 +14,10 @@ function App() {
       <GlobalStyle />
       <Header />
       <Routes>
-        <Route path="/" element={<Post />} />
-        <Route path="write" element={<Write />} />
+        <Route path="/" element={<Home />} />
         <Route path="/" element={<Register />} />
+        <Route path="write" element={<Write />} />
+        <Route path="detail/:id" element={<Detail />} />
       </Routes>
     </BrowserRouter>
   );
