@@ -1,36 +1,57 @@
-import React, { useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
+import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { _GetRegister } from "../redux/RegisterSlice";
+import { useCookies } from "react-cookie";
+import { SendNickname } from "../redux/nicknameSlice";
 
 function Register({ showModal, closeModal, decidepage }) {
   const dispatch = useDispatch();
-  console.log("재");
+  const state = useSelector((state) => state);
+  const [cookies, setCookie] = useCookies(["id"]);
+
+  const userId = useRef(null);
+  const userPswd = useRef(null);
 
   const idcheck = useRef(null);
   const pswdcheck = useRef(null);
   const pswdcheck2 = useRef(null);
 
-  // post 보낼 부분
-  const getCookie = () => {
-    alert("회원가입 완료!");
-    document.getElementById("exitBtn").click();
-    // dispatch(
-    //   _GetRegister({
-    //     id: idcheck.current.value,
-    //     password: pswdcheck.current.value,
-    //   })
-    // );
+  // console.log("렌더링");
+  // console.log(cookies.id);
+
+  const Login = async () => {
+    const userData = {
+      nickname: userId.current.value,
+      password: userPswd.current.value,
+    };
+    try {
+      const response = await axios.post(
+        `http://13.209.87.191/api/login`,
+        userData
+      );
+      setCookie("id", response.data.token);
+      console.log(response.data.nickname);
+      dispatch(SendNickname(response.data.nickname));
+      // document.getElementById("exitBtn2").click();
+    } catch (error) {
+      console.log(error);
+      alert("아이디 또는 비밀번호가 잘못됐습니다.");
+    }
   };
 
-  const regExp = /[!?@#$%^&*():;+-=~{}<>\_\[\]\|\\\"\'\,\.\/\`\₩]/g;
+  // console.log(state.nicknameSlice.nickanme);
+
+  // 회원가입 onclick > 아이디와 비밀번호를 받아서 유효성 검사를 하고 Register 함수를 실행
   const Getregister = () => {
+    console.log("유효성 테스트 실행됌");
+    const regExp = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/g;
     if (
       pswdcheck.current.value !== pswdcheck2.current.value ||
       idcheck.current.value.trim().length == 0
     ) {
       document.getElementById(`pswdnotion`).style.display = "block";
-      // 비밀번호와 확인용 비밀번호가 서로 다를때
+      // 비밀번호와 확인용 비밀번호가 서로 다를때 아이디가 아무것도 없을때
     } else if (
       pswdcheck.current.value.search(/\s/) !== -1 ||
       idcheck.current.value.search(/\s/) !== -1
@@ -50,13 +71,32 @@ function Register({ showModal, closeModal, decidepage }) {
       document.getElementById(`pswdnotion`).style.display = "block";
       // 비밀번호의 길이가 4 < 비밀번호 < 11 일때
     } else if (
-      idcheck.current.value.length > 5 ||
+      idcheck.current.value.length > 8 ||
       idcheck.current.value.length < 2
     ) {
       document.getElementById(`pswdnotion`).style.display = "block";
       // 아이디의 길이가 2 < 아이디 < 5 일때
     } else {
-      getCookie();
+      // 정보를 보내서 회원가입 시도
+      const Register = async () => {
+        console.log("회원가입 정보 보내기 시도");
+        const userData = {
+          nickname: idcheck.current.value,
+          password: pswdcheck.current.value,
+          confirmPassword: pswdcheck2.current.value,
+        };
+        try {
+          const result = await axios.post(
+            `http://13.209.87.191/api/signup`,
+            userData
+          );
+          alert(result.data.message);
+          document.getElementById("exitBtn").click();
+        } catch (error) {
+          alert(error.response.data.errorMessage);
+        }
+      };
+      Register();
     }
   };
 
@@ -66,19 +106,31 @@ function Register({ showModal, closeModal, decidepage }) {
         showModal ? (
           <Background>
             <ModalContainer>
-              <ExitBtn onClick={closeModal}>X</ExitBtn>
+              <ExitBtn onClick={closeModal} id="exitBtn2">
+                X
+              </ExitBtn>
               <TitleBox>로그인</TitleBox>
               <WriteBox>
                 <div>
                   <TextBox>아이디</TextBox>
-                  <InputBox />
+                  <InputBox placeholder="ID" ref={userId} />
                   <TextBox>비밀번호</TextBox>
-                  <InputBox type="password" />
+                  <InputBox
+                    placeholder="PASSWORD"
+                    type="password"
+                    ref={userPswd}
+                  />
                 </div>
               </WriteBox>
               <ClickBox>
                 <CheckPswd>아이디와 비밀번호를 확인해주세요</CheckPswd>
-                <LoginBtn>로그인</LoginBtn>
+                <LoginBtn
+                  onClick={() => {
+                    Login();
+                  }}
+                >
+                  로그인
+                </LoginBtn>
               </ClickBox>
             </ModalContainer>
           </Background>
@@ -93,13 +145,21 @@ function Register({ showModal, closeModal, decidepage }) {
             <WriteBox>
               <div>
                 <TextBox>아이디</TextBox>
-                <InputBox ref={idcheck} />
-                <AlertText>2~5글자/영대소문자,숫자 포함</AlertText>
+                <InputBox placeholder="ID" ref={idcheck} />
+                <AlertText>2~8글자/영대소문자,숫자 포함</AlertText>
                 <TextBox>비밀번호</TextBox>
-                <InputBox ref={pswdcheck} type="password" />
+                <InputBox
+                  placeholder="PASSWORD"
+                  ref={pswdcheck}
+                  type="password"
+                />
                 <AlertText>4~10글자/영대소문자,숫자 포함</AlertText>
                 <TextBox>비밀번호 재확인</TextBox>
-                <InputBox ref={pswdcheck2} type="password" />
+                <InputBox
+                  placeholder="PASSWORD"
+                  ref={pswdcheck2}
+                  type="password"
+                />
                 <CheckPswd id="pswdnotion">
                   아이디와 비밀번호를 확인해주세요
                 </CheckPswd>
@@ -107,7 +167,13 @@ function Register({ showModal, closeModal, decidepage }) {
               </div>
             </WriteBox>
             <ClickBox>
-              <RegisterBtn onClick={Getregister}>회원가입</RegisterBtn>
+              <RegisterBtn
+                onClick={() => {
+                  Getregister();
+                }}
+              >
+                회원가입
+              </RegisterBtn>
             </ClickBox>
           </ModalContainer>
         </Background>
@@ -136,7 +202,7 @@ const ModalContainer = styled.div`
   width: 27rem;
   height: 50%;
   padding: 16px;
-  background: #c8d5f5;
+  background: #cacaca;
   border-radius: 10px;
 `;
 // 모달 부분 끝
@@ -147,8 +213,8 @@ const ExitBtn = styled.button`
   float: right;
   color: #e06c6c;
   font-size: 1.3em;
-  background-color: #c8d5f5;
-  border: 1px solid #c8d5f5;
+  background-color: #cacaca;
+  border: 1px solid #cacaca;
   :hover {
     color: red;
   }
@@ -164,7 +230,7 @@ const TitleBox = styled.div`
 
 const TextBox = styled.div`
   font-size: 1.1em;
-  margin-top: -3px;
+  margin-top: 10px;
 `;
 
 const RegisterBtn = styled.button`
@@ -194,7 +260,7 @@ const ClickBox = styled.div`
 const WriteBox = styled.div`
   justify-content: center;
   width: 50%;
-  margin: 30px 30px 0px 90px;
+  margin: 15px 30px 0px 90px;
 `;
 
 const InputBox = styled.input`

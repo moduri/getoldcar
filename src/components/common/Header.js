@@ -1,12 +1,32 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Register from "../../pages/Register";
+import { useCookies } from "react-cookie";
+import { useSelector } from "react-redux";
 
 function Header() {
   const [showModal, setShowModal] = useState(false);
   const [decidepage, setDecidepage] = useState(true);
+  const [havecookie, setHavecookie] = useState(true);
   const navigate = useNavigate();
+  const [cookies] = useCookies();
+  const idvalue = document.cookie.slice(0, 2); // 쿠키의 아이디만 가져오기 위해.
+
+  useEffect(() => {
+    if (cookies.id == undefined) {
+      setHavecookie(false);
+    } else {
+      setHavecookie(true);
+    }
+  }, [document.cookie]);
+
+  //쿠키 삭제
+  const deleteCookie = function (id) {
+    console.log("삭제");
+    document.cookie =
+      id + "=; expires=Thu, 01 Jan 1999 00:00:10 GMT;domain=localhost;path=/;";
+  };
 
   const openModal = () => {
     setShowModal(true);
@@ -26,27 +46,22 @@ function Header() {
     navigate("/");
   };
 
-  const getedToken = true;
-
-  //쿠키삭제
-  function deleteCookie(name) {
-    document.cookie = name + "=; expires=Thu, 01 Jan 1970 00:00:01 GMT;";
-  }
-  // deleteCookie(변수이름)  deleteCookie('name');
-
-  var getCookie = function (name) {
-    var value = document.cookie.match("(^|;) ?" + name + "=([^;]*)(;|$)");
-    return value ? value[2] : null;
-  };
-
-  // getCookie(변수이름)  var is_expend = getCookie("expend");
-  // console.log("쿠키 is_expend변수에 저장된 값: " + is_expend);
-
   return (
     <>
       <Head>
         <BtnBox>
-          {getedToken ? (
+          {havecookie ? (
+            <NicknameLogout>
+              <div>파이리님</div>
+              <button
+                onClick={() => {
+                  deleteCookie(idvalue);
+                }}
+              >
+                로그아웃
+              </button>
+            </NicknameLogout>
+          ) : (
             <div>
               <LoginRegister
                 onClick={() => {
@@ -65,11 +80,6 @@ function Header() {
                 회원가입
               </LoginRegister>
             </div>
-          ) : (
-            <NicknameLogout>
-              <div>파이리님</div>
-              <button>로그아웃</button>
-            </NicknameLogout>
           )}
 
           <Register
@@ -88,7 +98,40 @@ function Header() {
 
 const Head = styled.div`
   height: 100px;
-  background-color: #aac0f9;
+  /* background-color: #6fa3e2; */
+  background-image: url("https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/buying-new-vers-used-1627408695.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-position: 0% 60%;
+
+  -webkit-animation: focus-in-expand-fwd 0.8s
+    cubic-bezier(0.25, 0.46, 0.45, 0.94);
+  animation: focus-in-expand-fwd 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+  @keyframes focus-in-expand-fwd {
+    0% {
+      letter-spacing: -0.5em;
+      -webkit-transform: translateZ(-800px);
+      transform: translateZ(-800px);
+      -webkit-filter: blur(12px);
+      filter: blur(12px);
+      opacity: 0;
+    }
+    15% {
+      -webkit-transform: translateZ(-400px);
+      transform: translateZ(-400px);
+      -webkit-filter: blur(6px);
+      filter: blur(12px);
+      opacity: 1;
+    }
+    100% {
+      -webkit-transform: translateZ(0);
+      transform: translateZ(0);
+      -webkit-filter: blur(0);
+      filter: blur(0);
+      opacity: 1;
+    }
+  }
 `;
 
 const BtnBox = styled.div`
@@ -113,6 +156,7 @@ const MainTitle = styled.div`
   font-size: 1.3em;
   text-align: center;
   padding-top: 37px;
+  color: white;
 `;
 
 const NicknameLogout = styled.div`
