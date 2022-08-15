@@ -28,6 +28,8 @@ function Register({ showModal, closeModal, decidepage }) {
     }
   };
 
+  // 수정본
+
   return (
     <div>
       {decidepage ? (
