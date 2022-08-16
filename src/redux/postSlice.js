@@ -11,6 +11,7 @@ import axios from "axios";
 //     createdAt: "22.08.04",
 //     updatedAt: "22.08.04",
 //   },
+
 //   {
 //     postId: 11,
 //     userId: 1,
@@ -29,6 +30,7 @@ import axios from "axios";
 //     createdAt: "22.08.04",
 //     updatedAt: "22.08.04",
 //   },
+
 //   {
 //     postId: 4,
 //     userId: 3,
@@ -45,6 +47,8 @@ export const _GetPosted = createAsyncThunk(
     console.log(value);
     try {
       const result = await axios.get("http://13.209.87.191/api");
+      console.log(result);
+
       return thunkAPI.fulfillWithValue(result.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);

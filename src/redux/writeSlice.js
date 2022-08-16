@@ -15,12 +15,10 @@ export const postWritesThunk = createAsyncThunk(
       const response = await axios.post(`http://13.209.87.191/api/posts`,dd,{headers});
       return thunkAPI.fulfillWithValue(response.data);
       // return response.data;
-    } catch (error) {
-      console.log("에러발생")
-      return thunkAPI.rejectWithValue(error);
     }
   }
-);
+)
+
 
 export const Write = createSlice({
   name: "????",
@@ -30,7 +28,6 @@ export const Write = createSlice({
     builder
       .addCase(postWritesThunk.pending, (state, action) => {})
       .addCase(postWritesThunk.fulfilled, (state, action) => {
-        console.log(current(state));
         state.data?.push(action.payload);
       })
       .addCase(postWritesThunk.rejected, (state, action) => {});

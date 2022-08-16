@@ -98,7 +98,6 @@ function Register({ showModal, closeModal, decidepage }) {
           alert(result.data.message);
           document.getElementById("exitBtn").click();
           console.log(3);
-
         } catch (error) {
           alert(error.response.data.errorMessage);
         }

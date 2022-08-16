@@ -18,7 +18,6 @@ import { useCookies } from "react-cookie";
 // console.log(decodedHeader);
 
 const Write = () => {
-  // const htmlId = nextId();
 
   const [cookies] = useCookies();
 
@@ -104,6 +103,7 @@ const Write = () => {
   );
 };
 export default Write;
+
 
 // pull request확인용 주석
 

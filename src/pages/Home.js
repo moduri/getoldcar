@@ -33,8 +33,18 @@ const Home = () => {
             <PostedBox
               key={value.postId}
               onClick={() => {
-                navigate(`/detail/${value.postId}`, 
-                );
+                navigate(`/detail/${value.postId}`, {
+                  state: {
+                    createdAt: value.createdAt,
+                    updatedAt: value.updatedAt,
+                    useId: value.userId,
+                    nickname: value.nickname,
+                    title: value.title,
+                    url:value.url,
+                    content:value.content,
+                    //여기에 title url content를 넣어줘야 detail페이지에서 
+                  },
+                });
               }}
             >
               <div>
