@@ -14,8 +14,8 @@ function Header() {
   const idvalue = document.cookie.slice(0, 2); // 쿠키의 아이디만 가져오기 위해.
 
 
-  console.log(state);
-  console.log(state.nickname);
+  // console.log(state);
+  // console.log(state.nickname);
 
 
   useEffect(() => {

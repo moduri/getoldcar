@@ -16,6 +16,7 @@ export const postWritesThunk = createAsyncThunk(
       return thunkAPI.fulfillWithValue(response.data);
       // return response.data;
     }
+    catch{}
   }
 )
 
