@@ -36,6 +36,7 @@ function Header() {
       window.location.reload();
       // 삭제 후 상단 바뀌는거 수정해야함, 새로고침 하는 방향말고 다른 방향으로
     } else {
+      navigate("/");
       window.location.reload();
     }
   };
