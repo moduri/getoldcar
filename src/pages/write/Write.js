@@ -1,21 +1,24 @@
-import React from "react";
+import React, { useReducer, useRef } from "react";
 import { Title, Body, Btngroup, Btn1, Btn2, Header, Url } from "./styles";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { postWritesThunk } from "../../redux/writeSlice";
+import { useCookies } from "react-cookie";
 
 const Write = () => {
-  const state = useSelector((state) => state.nicknameSlice.nickanme);
+  const state = useSelector((state) => state.nicknameSlice.nickanme); //닉네임 불러오기
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const [cookies] = useCookies();
+
   const [write, setWrite] = useState({
     title: "",
     content: "",
     url: "",
   });
-
-  console.log(state);
+  // console.log(cookies.id);
+  // console.log(state);
 
   const onChangeHandler = (event) => {
     const { name, value } = event.target;
@@ -28,11 +31,14 @@ const Write = () => {
   const onSubmit = (e) => {
     // e.prventDefault();
     dispatch(
-      postWritesThunk({
-        title: write.title,
-        content: write.content,
-        url: write.url,
-      })
+      postWritesThunk([
+        {
+          title: write.title,
+          content: write.content,
+          url: write.url,
+        },
+        { id: cookies.id },
+      ])
     );
     alert("글 등록이 완료되었습니다.");
   };

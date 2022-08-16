@@ -7,12 +7,9 @@ import { useCookies } from "react-cookie";
 
 const Home = () => {
   const state = useSelector((state) => state.Post.data.posts);
-  const state2 = useSelector((state) => state);
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const [cookies] = useCookies();
-
-  console.log(state2.nicknameSlice.nickanme);
 
   useEffect(() => {
     dispatch(_GetPosted());

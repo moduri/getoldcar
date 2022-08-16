@@ -13,8 +13,8 @@ function Header() {
   const navigate = useNavigate();
   const [cookies] = useCookies();
   const idvalue = document.cookie.slice(0, 2); // 쿠키의 아이디만 가져오기 위해.
-  console.log(cookies);
-  console.log(state.nickanme);
+  // console.log(cookies);
+  // console.log(state.nickanme);
 
   useEffect(() => {
     if (cookies.id == undefined) {
@@ -118,35 +118,6 @@ const Head = styled.div`
   background-repeat: no-repeat;
   background-size: cover;
   background-position: 0% 60%;
-
-  -webkit-animation: focus-in-expand-fwd 0.8s
-    cubic-bezier(0.25, 0.46, 0.45, 0.94);
-  animation: focus-in-expand-fwd 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
-
-  @keyframes focus-in-expand-fwd {
-    0% {
-      letter-spacing: -0.5em;
-      -webkit-transform: translateZ(-800px);
-      transform: translateZ(-800px);
-      -webkit-filter: blur(12px);
-      filter: blur(12px);
-      opacity: 0;
-    }
-    15% {
-      -webkit-transform: translateZ(-400px);
-      transform: translateZ(-400px);
-      -webkit-filter: blur(6px);
-      filter: blur(12px);
-      opacity: 1;
-    }
-    100% {
-      -webkit-transform: translateZ(0);
-      transform: translateZ(0);
-      -webkit-filter: blur(0);
-      filter: blur(0);
-      opacity: 1;
-    }
-  }
 `;
 
 const BtnBox = styled.div`
@@ -176,6 +147,36 @@ const MainTitle = styled.div`
   text-align: center;
   padding-top: 37px;
   color: white;
+  div {
+    -webkit-animation: focus-in-expand-fwd 0.8s
+      cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    animation: focus-in-expand-fwd 0.8s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+
+    @keyframes focus-in-expand-fwd {
+      0% {
+        letter-spacing: -0.5em;
+        -webkit-transform: translateZ(-800px);
+        transform: translateZ(-800px);
+        -webkit-filter: blur(12px);
+        filter: blur(12px);
+        opacity: 0;
+      }
+      15% {
+        -webkit-transform: translateZ(-400px);
+        transform: translateZ(-400px);
+        -webkit-filter: blur(6px);
+        filter: blur(12px);
+        opacity: 1;
+      }
+      100% {
+        -webkit-transform: translateZ(0);
+        transform: translateZ(0);
+        -webkit-filter: blur(0);
+        filter: blur(0);
+        opacity: 1;
+      }
+    }
+  }
 `;
 
 const NicknameLogout = styled.div`

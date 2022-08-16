@@ -10,7 +10,7 @@ function Register({ showModal, closeModal, decidepage }) {
   const state = useSelector((state) => state);
   const [cookies, setCookie] = useCookies(["id"]);
 
-  // console.log(state.nicknameSlice.nickanme);
+  console.log(state.nicknameSlice.nickanme);
 
   const userId = useRef(null);
   const userPswd = useRef(null);
