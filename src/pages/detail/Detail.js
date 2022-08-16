@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 // import Reply from "./Reply";
 import { Title, Body, PostWrapper, Url } from "./styles";
@@ -8,22 +8,31 @@ import { useCookies } from "react-cookie";
 import { pickPostAysnc } from "../../redux/postsSlice";
 import { useLocation } from "react-router-dom";
 const Detail = () => {
-  // const { id } = useParams();
+  const { cd } = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const location = useLocation();
-  console.log(location);
-  const [cookies] = useCookies(["garbageCookie"]);
+  const [ad,setAd] =useState();
+  // const location = useLocation();
+  // console.log(location);
+  // const [cookies] = useCookies(["garbageCookie"]);
+
+  const pages = useSelector((state) => state.Post.data.posts);
+  // console.log(pages);
+console.log(cd);
+  // console.log(cd);
+  // const array = pages?.filter((v) => v.postId ==  cd);
+  // console.log(array);
+  
+  useEffect(()=>{
+    dispatch(pickPostAysnc(cd));
+  },[]);
+
+  // if(!pages){
+  //   return null
+  // };
   // useEffect(() => {
-  //   if (!cookies.garbageCookie) {
-  //     navigate("/");
-  //   }
-  //   dispatch(pickPostAysnc());
+  //   setAd(array)
   // }, []);
-
-  const pages = useSelector((state) => state.Post.data);
-
-  // const array = pages.filter((v) => v.postId == {id});
 
   return (
     <>
@@ -34,10 +43,10 @@ const Detail = () => {
         </LinkBox>
       </Header>
       <PostWrapper>
-        <Title>{location.state.title}</Title>
-        <Url>{location.state.url}</Url>
+        <Title>{cd.title}</Title>
+        <Url>{cd.url}</Url> 
         {/* <Id>아이디:{array[0].id}</Id> */}
-        <Body>{location.state.content}</Body>
+        <Body>{cd.content}</Body>
       </PostWrapper>
       {/* <Reply postId={id} /> */}
     </>

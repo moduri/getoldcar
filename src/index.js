@@ -9,11 +9,13 @@ import store from "./redux/config/configStore";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <CookiesProvider>
+  
     <Provider store={store}>
+      <CookiesProvider>
       <App />
+      </CookiesProvider>
     </Provider>
-  </CookiesProvider>
+  
 );
 
 reportWebVitals();
