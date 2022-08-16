@@ -24,13 +24,17 @@ export const postWritesThunk = createAsyncThunk(
 
 export const Write = createSlice({
   name: "????",
-  initialState:{},
+  initialState: {},
   reducers: {},
-  extraReducers : {
-    [postWritesThunk.fulfilled]: (state, action) => {
-      state.data = action.payload;
-    },
-  }
+  extraReducers: (builder) => {
+    builder
+      .addCase(postWritesThunk.pending, (state, action) => {})
+      .addCase(postWritesThunk.fulfilled, (state, action) => {
+        console.log(current(state));
+        state.data?.push(action.payload);
+      })
+      .addCase(postWritesThunk.rejected, (state, action) => {});
+  },
 });
 
 export default Write.reducer;

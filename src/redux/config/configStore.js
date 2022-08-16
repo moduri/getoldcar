@@ -16,7 +16,7 @@ export const store = configureStore({
     PostsSlice,
 
   },
-  // middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 });
 
 // const persistConfig = {

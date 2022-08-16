@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import * as ImagePicker from "expo-image-picker";
 
+// 미사용미사용미사용미사용미사용미사용미사용미사용미사용미사용미사용미사용미사용미사용미사용미사용미사용미사용미사용미사용
 function ImagePicketComponent() {
   const [imageUrl, setImageUrl] = useState("");
   const [status, requestPermission] = ImagePicker.useMediaLibraryPermissions();
