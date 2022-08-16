@@ -3,13 +3,13 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { _GetPosted } from "../redux/postSlice";
-import { useCookies } from "react-cookie";
+import { useCookies, withCookies } from "react-cookie";
 
 const Home = () => {
   const state = useSelector((state) => state.Post.data.posts);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [cookies] = useCookies();
+  const [cookies] = useCookies(["id"]);
 
   useEffect(() => {
     dispatch(_GetPosted());
@@ -84,4 +84,4 @@ const WriteBtn = styled.div`
   }
 `;
 
-export default Home;
+export default withCookies(Home);

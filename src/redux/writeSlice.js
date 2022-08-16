@@ -9,7 +9,12 @@ export const postWritesThunk = createAsyncThunk(
       console.log(data[0], data[1].id);
       const response = await axios.post(
         `http://13.209.87.191/api/posts`,
-        data[0]
+        data[0],
+        {
+          headers: {
+            Authorization: `Bearer ${data[1].id}`,
+          },
+        }
       );
       console.log(response);
     } catch (error) {

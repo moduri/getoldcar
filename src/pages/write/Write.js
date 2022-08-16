@@ -4,13 +4,14 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { postWritesThunk } from "../../redux/writeSlice";
-import { useCookies } from "react-cookie";
+import { useCookies, withCookies } from "react-cookie";
 
 const Write = () => {
   const state = useSelector((state) => state.nicknameSlice.nickanme); //닉네임 불러오기
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const [cookies] = useCookies();
+  const [cookies] = useCookies(["id"]);
+  console.log(cookies);
 
   const [write, setWrite] = useState({
     title: "",
@@ -81,6 +82,6 @@ const Write = () => {
     </div>
   );
 };
-export default Write;
+export default withCookies(Write);
 
 // pull request확인용 주석

@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import styled from "styled-components";
 import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
-import { useCookies } from "react-cookie";
+import { useCookies, withCookies } from "react-cookie";
 import { SendNickname } from "../redux/nicknameSlice";
 
 function Register({ showModal, closeModal, decidepage }) {
@@ -30,6 +30,7 @@ function Register({ showModal, closeModal, decidepage }) {
         `http://13.209.87.191/api/login`,
         userData
       );
+      console.log(response);
       setCookie("id", response.data.token);
       // 쿠키에 토큰 저장
       console.log(response.data.nickname);
@@ -285,4 +286,4 @@ const CheckPswd = styled.div`
   margin-bottom: 10px;
 `;
 
-export default Register;
+export default withCookies(Register);
