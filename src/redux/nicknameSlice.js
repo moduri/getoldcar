@@ -11,7 +11,7 @@ const nicknameSlice = createSlice({
   reducers: {
     SendNickname(state, action) {
       console.log("슬라이스 도착");
-      state.nickanme = action.payload;
+      state.nickname = action.payload;
     },
   },
 });

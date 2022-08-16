@@ -12,10 +12,11 @@ export const store = configureStore({
     nicknameSlice,
     Post,
     LoginSlice,
-    Write: Write.reducer,
-    post: PostsSlice.reducer,
+    Write,
+    PostsSlice,
+
   },
-  middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
+  // middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 });
 
 // const persistConfig = {

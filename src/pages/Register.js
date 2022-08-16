@@ -4,13 +4,12 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { useCookies } from "react-cookie";
 import { SendNickname } from "../redux/nicknameSlice";
+import { useNavigate,} from "react-router-dom";
 
 function Register({ showModal, closeModal, decidepage }) {
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
   const [cookies, setCookie] = useCookies(["id"]);
-
-  // console.log(state.nicknameSlice.nickanme);
 
   const userId = useRef(null);
   const userPswd = useRef(null);
@@ -18,8 +17,11 @@ function Register({ showModal, closeModal, decidepage }) {
   const idcheck = useRef(null);
   const pswdcheck = useRef(null);
   const pswdcheck2 = useRef(null);
+  const navigate = useNavigate();
 
-  // 로그인
+  // console.log("렌더링");
+  // console.log(cookies.id);
+
   const Login = async () => {
     const userData = {
       nickname: userId.current.value,
@@ -31,10 +33,10 @@ function Register({ showModal, closeModal, decidepage }) {
         userData
       );
       setCookie("id", response.data.token);
-      // 쿠키에 토큰 저장
       console.log(response.data.nickname);
       dispatch(SendNickname(response.data.nickname));
       // document.getElementById("exitBtn2").click();
+      navigate("/");
     } catch (error) {
       console.log(error);
       alert("아이디 또는 비밀번호가 잘못됐습니다.");
@@ -87,12 +89,16 @@ function Register({ showModal, closeModal, decidepage }) {
           confirmPassword: pswdcheck2.current.value,
         };
         try {
+          console.log(1);
           const result = await axios.post(
             `http://13.209.87.191/api/signup`,
             userData
           );
+          console.log(2);
           alert(result.data.message);
           document.getElementById("exitBtn").click();
+          console.log(3);
+
         } catch (error) {
           alert(error.response.data.errorMessage);
         }

@@ -13,8 +13,9 @@ function Header() {
   const navigate = useNavigate();
   const [cookies] = useCookies();
   const idvalue = document.cookie.slice(0, 2); // 쿠키의 아이디만 가져오기 위해.
-  console.log(cookies);
-  console.log(state.nickanme);
+
+  console.log(state);
+  console.log(state.nickname);
 
   useEffect(() => {
     if (cookies.id == undefined) {
