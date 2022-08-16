@@ -3,18 +3,25 @@ import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { _GetPosted } from "../redux/postSlice";
+import { useCookies, withCookies } from "react-cookie";
 
 const Home = () => {
   const state = useSelector((state) => state.Post.data.posts);
-  const state2 = useSelector((state) => state);
   const navigate = useNavigate();
   const dispatch = useDispatch();
-
-  // console.log(state2);
+  const [cookies] = useCookies(["id"]);
 
   useEffect(() => {
     dispatch(_GetPosted());
   }, []);
+
+  const toWrite = () => {
+    if (cookies.id == undefined) {
+      alert("로그인을 해주세요");
+    } else {
+      navigate("/write");
+    }
+  };
 
   return (
     <>
@@ -22,7 +29,7 @@ const Home = () => {
         <WriteBtn>
           <button
             onClick={() => {
-              navigate("/write");
+              toWrite();
             }}
           >
             작성하기
@@ -33,24 +40,11 @@ const Home = () => {
             <PostedBox
               key={value.postId}
               onClick={() => {
-                navigate(`/detail/${value.postId}`, {
-                  state: {
-                    createdAt: value.createdAt,
-                    updatedAt: value.updatedAt,
-                    useId: value.userId,
-                    nickname: value.nickname,
-                    title: value.title,
-                    url:value.url,
-                    content:value.content,
-                    //여기에 title url content를 넣어줘야 detail페이지에서 
-                  },
-                });
+                navigate(`/detail/${value.postId}`);
               }}
             >
               <div>
                 <div>{value.nickname}</div>
-                <div>{value.title}</div>
-                <div>{value.url}</div>
                 <div>{value.content}</div>
               </div>
               <div>{value.createdAt}</div>
@@ -62,19 +56,6 @@ const Home = () => {
   );
 };
 
-
-                // {
-                //   state: {
-                //     createdAt: value.createdAt,
-                //     updatedAt: value.updatedAt,
-                //     useId: value.userId,
-                //     nickname: value.nickname,
-                //     title: value.title,
-                //     url:value.url,
-                //     content:value.content,
-                //     //여기에 title url content를 넣어줘야 detail페이지에서 
-                //   },
-                // }
 const PostedBox = styled.div`
   display: flex;
   justify-content: space-between;
@@ -103,4 +84,4 @@ const WriteBtn = styled.div`
   }
 `;
 
-export default Home;
+export default withCookies(Home);

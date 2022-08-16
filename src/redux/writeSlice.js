@@ -1,39 +1,45 @@
-import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
-import jwt_decode from "jwt-decode";
-
+import { current } from "@reduxjs/toolkit";
 
 export const postWritesThunk = createAsyncThunk(
-  "write->db",
-  async (dd,thunkAPI) => {
-    console.log(dd);
-    const headers = {
-    Authorization: `Bearer ${dd[1].id.id }`,
-    }
-    console.log(headers);
+  "user/write",
+  async (data, thunkAPI) => {
     try {
-      const response = await axios.post(`http://13.209.87.191/api/posts`,dd,{headers});
-      return thunkAPI.fulfillWithValue(response.data);
-      // return response.data;
+      console.log(data[0], data[1].id);
+      const response = await axios.post(
+        `http://13.209.87.191/api/posts`,
+        data[0],
+        {
+          headers: {
+            Authorization: `Bearer ${data[1].id}`,
+          },
+        }
+      );
+      console.log(response);
+    } catch (error) {
+      console.log(error);
     }
-    catch{}
   }
-)
+);
 
-
-export const Write = createSlice({
-  name: "????",
-  initialState: {},
+const initialState = {
+  writed: [],
+  isLoading: false,
+  error: null,
+};
+const Write = createSlice({
+  name: "writed",
+  initialState,
   reducers: {},
-  extraReducers: (builder) => {
-    builder
-      .addCase(postWritesThunk.pending, (state, action) => {})
-      .addCase(postWritesThunk.fulfilled, (state, action) => {
-        state.data?.push(action.payload);
-      })
-      .addCase(postWritesThunk.rejected, (state, action) => {});
+  extraReducers: {
+    [postWritesThunk.fulfilled]: (state, action) => {
+      console.log(current(state), action);
+    },
+    [postWritesThunk.rejected]: (state, action) => {
+      state.error = action.payload;
+    },
   },
 });
 
 export default Write.reducer;
-

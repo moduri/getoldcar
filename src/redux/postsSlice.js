@@ -1,22 +1,15 @@
-
-
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 
 export const pickPostAysnc = createAsyncThunk(
   "post/pickPost",
-  async (cd,thunkAPI) => {
+  async (thunkAPI) => {
     try {
-      console.log(cd);
-      const res = await axios.get(`http://13.209.87.191/api/posts/:postId`);
-      console.log(res);
+      const res = await axios.get(`http://13.209.87.191/api`);
       return res.data;
-      
-      // return thunkAPI.fulfillWithValue(res.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
-    
   }
 );
 
@@ -24,7 +17,7 @@ export const getPostAysnc = createAsyncThunk(
   "post/getPost",
   async (thunkAPI) => {
     try {
-      const res = await axios.get(`http://13.209.87.191/api/posts/`);
+      const res = await axios.get(`http://13.209.87.191/api`);
       return res.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
@@ -32,7 +25,7 @@ export const getPostAysnc = createAsyncThunk(
   }
 );
 
-export const PostsSlice = createSlice({
+export const PostSlice = createSlice({
   name: "postReducer",
   initialState: [],
   reducers: {},
@@ -48,4 +41,4 @@ export const PostsSlice = createSlice({
   },
 });
 
-export default PostsSlice.reducer;
+export default PostSlice;
