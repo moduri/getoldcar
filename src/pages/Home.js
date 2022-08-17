@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { _GetPosted } from "../redux/postSlice";
 import { useCookies, withCookies } from "react-cookie";
-import Comment from "../components/common/Comment";
 
 const Home = () => {
   const state = useSelector((state) => state.Post.data.posts);
