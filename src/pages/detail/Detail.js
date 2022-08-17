@@ -65,7 +65,7 @@ const goUrl = () =>{
       </Header>
       <PostWrapper>
         <Title>{state?.title}</Title>
-        <Url><a href={`${state?.title}`}>{state?.title}</a></Url>
+        <Url><a href={"https://www." + `${state?.title}`}>{state?.title}</a></Url>
         {/* <Url onClick={goUrl}>{state?.title}</Url> */}
         <Body>{state?.content}</Body>
       </PostWrapper>
