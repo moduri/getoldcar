@@ -30,10 +30,10 @@ function Register({ showModal, closeModal, decidepage }) {
         `http://13.209.87.191/api/login`,
         userData
       );
-      console.log(response);
+      // console.log(response);
       setCookie("id", response.data.token);
       // 쿠키에 토큰 저장
-      console.log(response.data.nickname);
+      // console.log(response.data.nickname);
       dispatch(SendNickname(response.data.nickname));
       // document.getElementById("exitBtn2").click();
     } catch (error) {
@@ -44,7 +44,6 @@ function Register({ showModal, closeModal, decidepage }) {
 
   // 회원가입 onclick > 아이디와 비밀번호를 받아서 유효성 검사를 하고 Register 함수를 실행
   const Getregister = () => {
-    console.log("유효성 테스트 실행됌");
     const regExp = /[\{\}\[\]\/?.,;:|\)*~`!^\-_+<>@\#$%&\\\=\(\'\"]/g;
     if (
       pswdcheck.current.value !== pswdcheck2.current.value ||
@@ -79,7 +78,6 @@ function Register({ showModal, closeModal, decidepage }) {
     } else {
       // 정보를 보내서 회원가입 시도
       const Register = async () => {
-        console.log("회원가입 정보 보내기 시도");
         const userData = {
           nickname: idcheck.current.value,
           password: pswdcheck.current.value,
