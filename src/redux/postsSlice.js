@@ -13,7 +13,6 @@ export const pickPostAysnc = createAsyncThunk(
             Authorization: `Bearer ${value.cookie}`,
           },
         }
-
       );
       console.log(res);
       return thunkAPI.fulfillWithValue(res.data);
@@ -25,8 +24,8 @@ export const pickPostAysnc = createAsyncThunk(
 //메인에서 선택한 게시글 삭제
 export const deletePost = createAsyncThunk(
   "delte/detailpost",
-  async(value,thunkAPI) => {
-    try{
+  async (value, thunkAPI) => {
+    try {
       const res = await axios.delete(
         `http://13.209.87.191/api/posts/${value.id}`,
         {
@@ -43,7 +42,6 @@ export const deletePost = createAsyncThunk(
   }
 );
 
-
 // export const getPostAysnc = createAsyncThunk(
 //   "post/getPost",
 //   async (thunkAPI) => {
@@ -56,7 +54,6 @@ export const deletePost = createAsyncThunk(
 //   }
 // );
 
-
 //메인세서 선택한 게시글 수정
 export const updatePost = createAsyncThunk(
   "detail/update",
@@ -64,6 +61,7 @@ export const updatePost = createAsyncThunk(
     try{
       console.log('수정할값', value);
       const res = await axios.put(`http://13.209.87.191/api/posts/${value[0].postId}`,value[1],
+
         {
           headers: {
             Authorization: `Bearer ${value[0].cookie}`,
@@ -84,7 +82,6 @@ const initialState = {
   error: null,
 };
 
-
 export const PostSlice = createSlice({
   name: "postReducer",
   initialState,
@@ -97,12 +94,12 @@ export const PostSlice = createSlice({
       // }))
       .addCase(updatePost.fulfilled,(state,action) => {
         console.log(current(state.posts))
+
         state.posts = action.payload;
       })
-      .addCase(deletePost.fulfilled,(state,action) => {
-        console.log("1")
+      .addCase(deletePost.fulfilled, (state, action) => {
+        console.log("1");
         state.posts = action.payload;
-        
       })
       .addCase(pickPostAysnc.fulfilled, (state, action) => {
         console.log(current(state.posts));
