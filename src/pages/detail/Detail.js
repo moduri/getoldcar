@@ -8,12 +8,14 @@ import { useCookies } from "react-cookie";
 import { pickPostAysnc,deletePost,updatePost } from "../../redux/postsSlice";
 
 import { useLocation } from "react-router-dom";
+import Comment from "../../components/common/Comment";
 const Detail = () => {
   const state = useSelector((state) => state.post.posts.posts);
   const params = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
+
   const [cookies] = useCookies(["id"]);
 
   
@@ -24,7 +26,6 @@ const Detail = () => {
   useEffect(() => {
     dispatch(pickPostAysnc({ id: params.cd, cookie: cookies.id }));
   }, [deletePost]);
-
 
   const updateView = () =>{
     console.log("시작입니다.")
@@ -66,6 +67,7 @@ const Detail = () => {
         <Body>{state?.content}</Body>
       </PostWrapper>
       {/* <Reply postId={id} /> */}
+      <Comment />
     </>
   );
 };

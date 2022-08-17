@@ -6,6 +6,7 @@ import PostsSlice from "../postsSlice";
 import writeSlice from "../writeSlice";
 import LoginSlice from "../LoginSlice";
 import nicknameSlice from "../nicknameSlice";
+import commentSlice from "../commentSlice";
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
     LoginSlice,
     writeSlice,
     post: PostsSlice.reducer,
+    commentSlice,
   },
   middleware: (getDefaultMiddleware) => getDefaultMiddleware(),
 });

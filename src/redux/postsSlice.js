@@ -1,7 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { current } from "@reduxjs/toolkit";
-// 메인에서 게시글 선택
+
 export const pickPostAysnc = createAsyncThunk(
   "post/pickPost",
   async (value, thunkAPI) => {
@@ -13,6 +13,7 @@ export const pickPostAysnc = createAsyncThunk(
             Authorization: `Bearer ${value.cookie}`,
           },
         }
+
       );console.log(res);
       return thunkAPI.fulfillWithValue(res.data);
     } catch (error) {
@@ -80,6 +81,12 @@ export const updatePost = createAsyncThunk(
     }
   }
 );
+const initialState = {
+  posts: [],
+  isLoading: false,
+  error: null,
+};
+
 const initialState = {
   posts: [],
   isLoading: false,

@@ -62,6 +62,7 @@ const PostedBox = styled.div`
   border: 1px solid white;
 
   width: 50%;
+  min-width: 360px;
   max-height: 55px;
   margin: auto;
   background-color: white;
