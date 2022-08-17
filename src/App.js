@@ -16,6 +16,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="write" element={<Write />} />
+        <Route path="write/:cd" element={<Write/>}/>
         <Route path="detail/:cd" element={<Detail />} />
       </Routes>
     </BrowserRouter>
