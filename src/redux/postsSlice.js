@@ -1,12 +1,21 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
+import { current } from "@reduxjs/toolkit";
 
 export const pickPostAysnc = createAsyncThunk(
   "post/pickPost",
-  async (thunkAPI) => {
+  async (value, thunkAPI) => {
     try {
-      const res = await axios.get(`http://13.209.87.191/api`);
-      return res.data;
+      const res = await axios.get(
+        `http://13.209.87.191/api/posts/${value.id}`,
+        {
+          headers: {
+            Authorization: `Bearer ${value.cookie}`,
+          },
+        }
+      );
+
+      return thunkAPI.fulfillWithValue(res.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -25,9 +34,15 @@ export const getPostAysnc = createAsyncThunk(
   }
 );
 
+const initialState = {
+  posts: [],
+  isLoading: false,
+  error: null,
+};
+
 export const PostSlice = createSlice({
   name: "postReducer",
-  initialState: [],
+  initialState,
   reducers: {},
   extraReducers: (builder) => {
     builder
@@ -36,7 +51,8 @@ export const PostSlice = createSlice({
         data: action.payload,
       }))
       .addCase(pickPostAysnc.fulfilled, (state, action) => {
-        state.data = action.payload;
+        console.log(current(state.posts));
+        state.posts = action.payload;
       });
   },
 });

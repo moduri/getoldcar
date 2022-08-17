@@ -7,19 +7,26 @@ import { useDispatch, useSelector } from "react-redux";
 import { useCookies } from "react-cookie";
 import { pickPostAysnc } from "../../redux/postsSlice";
 import { useLocation } from "react-router-dom";
+import Comment from "../../components/common/Comment";
 const Detail = () => {
-  // const { id } = useParams();
+  const state = useSelector((state) => state.post.posts.posts);
+  const params = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const location = useLocation();
-  console.log(location);
-  const [cookies] = useCookies(["garbageCookie"]);
+  const [cookies] = useCookies();
+  // console.log(params.cd, cookies.id);
+
   // useEffect(() => {
   //   if (!cookies.garbageCookie) {
   //     navigate("/");
   //   }
   //   dispatch(pickPostAysnc());
   // }, []);
+
+  useEffect(() => {
+    dispatch(pickPostAysnc({ id: params.cd, cookie: cookies.id }));
+  }, []);
 
   const pages = useSelector((state) => state.Post.data);
 
@@ -34,12 +41,13 @@ const Detail = () => {
         </LinkBox>
       </Header>
       <PostWrapper>
-        <Title>{location.state.title}</Title>
-        <Url>{location.state.url}</Url>
-        {/* <Id>아이디:{array[0].id}</Id> */}
-        <Body>{location.state.content}</Body>
+        <div>{state?.postId}</div>
+        <div>{state?.nickname}</div>
+        <div>{state?.title}</div>
+        <div>{state?.content}</div>
       </PostWrapper>
       {/* <Reply postId={id} /> */}
+      <Comment />
     </>
   );
 };
