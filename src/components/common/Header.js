@@ -11,11 +11,8 @@ function Header() {
   const [decidepage, setDecidepage] = useState(true);
   const [havecookie, setHavecookie] = useState(true);
   const navigate = useNavigate();
-  // const [cookies] = useCookies();
   const [cookies, setCookie, removeCookie] = useCookies(["id"]);
   const idvalue = document.cookie.slice(0, 2); // 쿠키의 아이디만 가져오기 위해.
-  // console.log(cookies);
-  // console.log(state.nickanme);
 
   useEffect(() => {
     if (cookies.id == undefined) {
@@ -30,17 +27,10 @@ function Header() {
   //쿠키 삭제
   const deleteCookie = function (id) {
     console.log("삭제");
-    // document.cookie =
-    //   id + "=; expires=Thu, 01 Jan 1999 00:00:10 GMT;domain=localhost;path=/;";
     removeCookie("id");
-    // if (window.location.pathname == "/write") {
-    //   navigate("/");
-    //   window.location.reload();
-    //   // 삭제 후 상단 바뀌는거 수정해야함, 새로고침 하는 방향말고 다른 방향으로
-    // } else {
-    //   navigate("/");
-    //   window.location.reload();
-    // }
+    if (window.location.pathname !== "/") {
+      navigate("/");
+    }
   };
 
   // 모달 열기 닫기
@@ -70,7 +60,6 @@ function Header() {
         <BtnBox>
           {havecookie ? (
             <NicknameLogout>
-              <Nickname>{state.nickanme}</Nickname>
               <button
                 onClick={() => {
                   deleteCookie(idvalue);

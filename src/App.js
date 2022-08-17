@@ -15,7 +15,6 @@ function App() {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        {/* <Route path="/" element={<Register />} /> */}
         <Route path="write" element={<Write />} />
         <Route path="detail/:cd" element={<Detail />} />
       </Routes>

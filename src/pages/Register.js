@@ -42,8 +42,6 @@ function Register({ showModal, closeModal, decidepage }) {
     }
   };
 
-  // console.log(state.nicknameSlice.nickanme);
-
   // 회원가입 onclick > 아이디와 비밀번호를 받아서 유효성 검사를 하고 Register 함수를 실행
   const Getregister = () => {
     console.log("유효성 테스트 실행됌");
