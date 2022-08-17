@@ -17,6 +17,17 @@ export const Title = styled.div`
   margin-bottom: 50px;
   border-bottom: solid 5px gray;
 `;
+export const Nickname = styled.div`
+  margin: 0 auto;
+  width: 70vw;
+ 
+  font-weight: 700;
+  font-size: 36px;
+  margin-bottom: 50px;
+  border-bottom: solid 5px gray;
+`;
+
+
 
 export const Url = styled.div`
   margin: 0 auto;
@@ -94,14 +105,14 @@ export const Formwrap = styled.div`
 `;
 
 export const Header = styled.div`
-  font-weight: 800;
-  font-size: 55px;
+  font-weight: 600;
+  font-size: 36px;
   line-height: 46px;
   letter-spacing: -0.8px;
-  text-align: center;
+  /* text-align: center; */
   margin: 0 auto;
   margin-top: 60px;
-  width: 800px;
+  width: 70vw;
   padding: 10px;
 `;
 
