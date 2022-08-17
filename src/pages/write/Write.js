@@ -9,23 +9,26 @@ import { updatePost } from "../../redux/postsSlice";
 import { useLocation } from "react-router";
 
 const Write = () => {
-  const state1 = useSelector((state) => state.nicknameSlice.nickanme); //닉네임 불러오기
+  const state11= useSelector((state) => state.nicknameSlice.nickanme); //닉네임 불러오기
   const navigate = useNavigate();
   const params = useParams();
   const dispatch = useDispatch();
-  const [cookies] = useCookies(["id"]);
+  const [cookies] = useCookies();
   const { state } = useLocation();
   console.log(state);
+
   console.log("확인용주석")
-  // console.log(cookies);
+  console.log(cookies.id);
+  console.log(params.cd);
 
   const [write, setWrite] = useState({
     title: "",
     content: "",
     url: "",
   });
+
   // console.log(cookies.id);
-  // console.log(state);
+  console.log(state);
 
   const onChangeHandler = (event) => {
     const { name, value } = event.target;
@@ -35,9 +38,10 @@ const Write = () => {
     });
   };
 
-  const onEdit = () => {
-    dispatch(updatePost({id:params.cd,cookie:cookies.id}));
-    console.log(params.cd);
+  const onEdit = async () => {
+    await dispatch(updatePost([{postId:params.cd, cookie:cookies.id}, {content: write.content, url: write.url, title: write.title}]));
+    // postId랑 쿠키 보내야함
+    navigate(`/detail/${params.cd}`)
   }
   const onSubmit = (e) => {
     // e.prventDefault();

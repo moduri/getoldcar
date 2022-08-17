@@ -7,53 +7,37 @@ export const PostWrapper = styled.div`
   width: 70vw;
   padding: 20px; */
 `;
-
+export const DelEdit = styled.button`
+`;
 export const Title = styled.div`
   margin: 0 auto;
-  width: 70vw;
+  width: 65vw;
  
   font-weight: 700;
   font-size: 36px;
   margin-bottom: 50px;
-  border-bottom: solid 5px gray;
+  border: solid 2px gray;
 `;
-export const Nickname = styled.div`
-  margin: 0 auto;
-  width: 70vw;
- 
-  font-weight: 700;
-  font-size: 36px;
-  margin-bottom: 50px;
-  border-bottom: solid 5px gray;
-`;
-
-
 
 export const Url = styled.div`
   margin: 0 auto;
-  width: 70vw;
-  
+  width: 65vw;
+  border : solid 2px gray;
   font-weight: 700;
-  font-size: 36px;
+  font-size: 30px;
   margin-bottom: 50px;
-  border-bottom: solid 5px red;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 `;
-export const Author = styled.div`
-  font-size: 15px;
-  font-weight: 800;
-  margin: 0 auto;
-  width: 69vw;
-  padding: 10px 10px;
-`;
+
+
 
 export const Body = styled.div`
   font-size: 25px;
   width: 65vw;
   height: 30vh;
-  border: 1px solid gray;
+  border: 2px solid gray;
   margin: 0 auto;
   margin-bottom: 40px;
   padding: 15px;
@@ -62,7 +46,7 @@ export const Body = styled.div`
   white-space: pre-wrap;
 `;
 export const CommentsBoxWrap = styled.div`
-  border: 2px solid gray;
+  border: px solid gray;
   width: 65vw;
   margin: 0 auto;
   padding: 15px;
@@ -107,11 +91,11 @@ export const Formwrap = styled.div`
 export const Header = styled.div`
   font-weight: 600;
   font-size: 36px;
-  line-height: 46px;
+  line-height: 65px;
   letter-spacing: -0.8px;
   /* text-align: center; */
   margin: 0 auto;
-  margin-top: 60px;
+  margin-top: 30px;
   width: 70vw;
   padding: 10px;
 `;

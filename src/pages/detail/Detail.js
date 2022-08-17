@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 // import Reply from "./Reply";
 import { Title, Body, PostWrapper, Url } from "./styles";
-import { Header, StyledLink, LinkBox } from "./styles";
+import { Header, StyledLink, LinkBox,DelEdit } from "./styles";
 import { useDispatch, useSelector } from "react-redux";
 import { useCookies } from "react-cookie";
 import { pickPostAysnc,deletePost,updatePost } from "../../redux/postsSlice";
@@ -14,10 +14,12 @@ const Detail = () => {
   const params = useParams();
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const location = useLocation();
+  // const location = useLocation();
 
   const [cookies] = useCookies(["id"]);
-
+const goUrl = () =>{
+  window.open(`${state?.title}`,"_blank");
+}
   
   console.log(cookies);
   console.log(params.cd, cookies.id);
@@ -29,7 +31,7 @@ const Detail = () => {
 
   const updateView = () =>{
     console.log("시작입니다.")
-    navigate("/write",{state:'edit'});
+    navigate(`/write/${params.cd}`,{state:'edit'});
     console.log(state);
     // dispatch(updatePost({id:params.cd,cookie:cookies.id}));
     console.log(2);
@@ -53,17 +55,18 @@ const Detail = () => {
   // const pages = useSelector((state) => state.Post.data);
   return (
     <>
-      <StyledLink to="/">메인 페이지</StyledLink>
-      <div className='write_option_div'>
+      {/* <StyledLink to="/">메인 페이지</StyledLink> */}
+      <DelEdit> 
         <input type='button' value='수정' onClick={()=>{updateView()}}/>
         <input type='button' value='삭제' onClick={removeView} />
-      </div>
+      </DelEdit>
       <Header>
         작성자:{state?.nickname}
       </Header>
       <PostWrapper>
         <Title>{state?.title}</Title>
-        <Url>{state?.url}</Url>
+        <Url><a href={`${state?.title}`}>{state?.title}</a></Url>
+        {/* <Url onClick={goUrl}>{state?.title}</Url> */}
         <Body>{state?.content}</Body>
       </PostWrapper>
       {/* <Reply postId={id} /> */}
