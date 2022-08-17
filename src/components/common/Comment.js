@@ -22,6 +22,10 @@ function Comment() {
     dispatch(_GetComment({ id: postId2, token: cookies.id }));
   }, []);
 
+  const stateForMap = state.slice().sort((a, b) => {
+    return b.commentId - a.commentId;
+  });
+
   return (
     <div>
       <input ref={comments_ref} />
@@ -39,22 +43,23 @@ function Comment() {
         작성
       </button>
       <div>
-        {state.map((value) => {
+        {stateForMap?.map((value) => {
           return (
             <CommentBox key={value.commentId}>
-              <div>{value.commentId}</div>
-              <div>{value.nickname}</div>
-              <div>{value.comment}</div>
-              <div>{value.createdAt}</div>
-              <button
-                onClick={() => {
-                  dispatch(
-                    _DeleteComment({ id: value.commentId, token: cookies.id })
-                  );
-                }}
-              >
-                삭제
-              </button>
+              <Text>{value.nickname}</Text>
+              <Text>{value.comment}</Text>
+              <BtnBox>
+                <Text>{value?.createdAt?.slice(5, 10)}</Text>
+                <button
+                  onClick={() => {
+                    dispatch(
+                      _DeleteComment({ id: value.commentId, token: cookies.id })
+                    );
+                  }}
+                >
+                  삭제
+                </button>
+              </BtnBox>
             </CommentBox>
           );
         })}
@@ -65,9 +70,21 @@ function Comment() {
 
 const CommentBox = styled.div`
   display: flex;
-  div {
-    margin-right: 40px;
-  }
+  min-width: 400px;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: space-between;
+  margin-bottom: 5px;
+`;
+
+const BtnBox = styled.div`
+  display: flex;
+  margin-left: 60px;
+`;
+
+const Text = styled.div`
+  margin-right: 30px;
 `;
 
 export default Comment;

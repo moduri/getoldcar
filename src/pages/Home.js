@@ -4,7 +4,6 @@ import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { _GetPosted } from "../redux/postSlice";
 import { useCookies, withCookies } from "react-cookie";
-import Comment from "../components/common/Comment";
 
 const Home = () => {
   const state = useSelector((state) => state.Post.data.posts);
@@ -63,6 +62,7 @@ const PostedBox = styled.div`
   border: 1px solid white;
 
   width: 50%;
+  min-width: 360px;
   max-height: 55px;
   margin: auto;
   background-color: white;

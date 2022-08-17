@@ -76,7 +76,8 @@ export const CommentsSlice = createSlice({
     },
 
     [_PostComment.fulfilled]: (state, action) => {
-      // state.comment.push(action.payload.content);
+      const newdata = current(state.comment).concat(action.payload.data.data);
+      state.comment = newdata;
     },
     [_PostComment.rejected]: (state, action) => {
       state.posts = [];
