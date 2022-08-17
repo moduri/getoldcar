@@ -39,7 +39,10 @@ const Write = () => {
   };
 
   const onEdit = async () => {
-    await dispatch(updatePost([{postId:params.cd, cookie:cookies.id}, {content: write.content, url: write.url, title: write.title}]));
+    await dispatch(updatePost([{postId:params.cd, 
+      cookie:cookies.id}, {content: write.content, 
+        url: write.url, 
+        title: write.title}]));
     // postId랑 쿠키 보내야함
     navigate(`/detail/${params.cd}`)
   }
