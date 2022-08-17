@@ -27,21 +27,23 @@ function Comment() {
   });
 
   return (
-    <div>
-      <input ref={comments_ref} />
-      <button
-        onClick={() => {
-          dispatch(
-            _PostComment({
-              postCmt: comments_ref?.current?.value,
-              Id: postId2,
-              token: cookies.id,
-            })
-          );
-        }}
-      >
-        작성
-      </button>
+    <BicBox>
+      <InputBtn>
+        <input ref={comments_ref} />
+        <button
+          onClick={() => {
+            dispatch(
+              _PostComment({
+                postCmt: comments_ref?.current?.value,
+                Id: postId2,
+                token: cookies.id,
+              })
+            );
+          }}
+        >
+          작성
+        </button>
+      </InputBtn>
       <div>
         {stateForMap?.map((value) => {
           return (
@@ -64,9 +66,25 @@ function Comment() {
           );
         })}
       </div>
-    </div>
+    </BicBox>
   );
 }
+
+const BicBox = styled.div`
+  margin-bottom: 50px;
+`;
+
+const InputBtn = styled.div`
+  display: flex;
+  width: 50%;
+  margin-left: auto;
+  margin-right: auto;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  input {
+    width: 75%;
+  }
+`;
 
 const CommentBox = styled.div`
   display: flex;
@@ -75,7 +93,7 @@ const CommentBox = styled.div`
   margin-left: auto;
   margin-right: auto;
   justify-content: space-between;
-  margin-bottom: 5px;
+  margin-bottom: 8px;
 `;
 
 const BtnBox = styled.div`
