@@ -43,22 +43,32 @@ const Write = () => {
     // postId랑 쿠키 보내야함
     navigate(`/detail/${params.cd}`)
   }
-  const onSubmit = (e) => {
-    // e.prventDefault();
-    dispatch(
-      postWritesThunk([
-        {
-          title: write.title,
-          content: write.content,
-          url: write.url,
-        },
-        { id: cookies.id },
-      ])
-    );
-    alert("글 등록이 완료되었습니다.");
-    navigate("/");
+  const onSubmit = () => {
+    let Inputurl = write.url 
+    if(!Inputurl.includes("http")){
+      alert("http 를 붙혀서 작성해주세요!")
+    } else if (write.content.trim().length === 0) {
+      alert("내용을 작성해주세요!")
+    } 
+    else {
+      dispatch(
+        postWritesThunk([
+          {
+            title: write.title,
+            content: write.content,
+            url: Inputurl,
+          },
+          { id: cookies.id },
+          
+        ])
+      );
+      alert("글 등록이 완료되었습니다.");
+      navigate("/");
+    }
+
   };
 
+  
   // useEffect(() => {
   //   dispatch(postWritesThunk())}
   // ,[updatePost]);
