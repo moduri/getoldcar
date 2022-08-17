@@ -7,6 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useCookies } from "react-cookie";
 import { pickPostAysnc } from "../../redux/postsSlice";
 import { useLocation } from "react-router-dom";
+import Comment from "../../components/common/Comment";
 const Detail = () => {
   const state = useSelector((state) => state.post.posts.posts);
   const params = useParams();
@@ -46,6 +47,7 @@ const Detail = () => {
         <div>{state?.content}</div>
       </PostWrapper>
       {/* <Reply postId={id} /> */}
+      <Comment />
     </>
   );
 };
