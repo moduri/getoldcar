@@ -1,22 +1,17 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { current } from "@reduxjs/toolkit";
+import { server_url } from ".";
 
 export const postWritesThunk = createAsyncThunk(
   "user/write",
   async (data, thunkAPI) => {
     try {
-      console.log(data[0], data[1].id);
-      const response = await axios.post(
-        `http://13.209.87.191/api/posts`,
-        data[0],
-        {
-          headers: {
-            Authorization: `Bearer ${data[1].id}`,
-          },
-        }
-      );
-      console.log(response);
+      const response = await axios.post(server_url + `/api/posts`, data[0], {
+        headers: {
+          Authorization: `Bearer ${data[1].id}`,
+        },
+      });
     } catch (error) {
       console.log(error);
     }
@@ -34,7 +29,7 @@ const Write = createSlice({
   reducers: {},
   extraReducers: {
     [postWritesThunk.fulfilled]: (state, action) => {
-      console.log(current(state), action);
+      // console.log(current(state), action);
     },
     [postWritesThunk.rejected]: (state, action) => {
       state.error = action.payload;

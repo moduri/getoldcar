@@ -1,12 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { current } from "@reduxjs/toolkit";
+import { server_url } from ".";
 
 export const _PostComment = createAsyncThunk(
   "comment/post",
   async (comment) => {
     const result = await axios.post(
-      `http://13.209.87.191/api/comments/${comment.Id}`,
+      server_url + `/api/comments/${comment.Id}`,
       { comment: comment.postCmt },
       {
         headers: {
@@ -22,14 +23,11 @@ export const _GetComment = createAsyncThunk(
   "comment/get",
   async (value, thunkAPI) => {
     try {
-      const result = await axios.get(
-        `http://13.209.87.191/api/comments/${value.id}`,
-        {
-          headers: {
-            Authorization: `Bearer ${value.token}`,
-          },
-        }
-      );
+      const result = await axios.get(server_url + `/api/comments/${value.id}`, {
+        headers: {
+          Authorization: `Bearer ${value.token}`,
+        },
+      });
       return thunkAPI.fulfillWithValue(result.data.allCommentInfo);
     } catch (error) {
       console.log(error);
@@ -42,7 +40,7 @@ export const _DeleteComment = createAsyncThunk(
   async (value, thunkAPI) => {
     try {
       const result = await axios.delete(
-        `http://13.209.87.191/api/comments/${value.id}`,
+        server_url + `/api/comments/${value.id}`,
         {
           headers: {
             Authorization: `Bearer ${value.token}`,

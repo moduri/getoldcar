@@ -1,17 +1,13 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { current } from "@reduxjs/toolkit";
+import { server_url } from ".";
 
 export const _GetUserData = createAsyncThunk(
   "user/Login",
   async (userInptData, thunkAPI) => {
     try {
-      console.log(userInptData);
-      const result = await axios.post(
-        `http://13.209.87.191/api/login`,
-        userInptData
-      );
-      console.log(result);
+      const result = await axios.post(server_url + `/api/login`, userInptData);
       return result.data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);

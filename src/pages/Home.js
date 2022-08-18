@@ -23,11 +23,9 @@ const Home = () => {
     }
   };
 
-  // 확인용 주석
-
   return (
     <>
-      <div>
+      <Allbox>
         <WriteBtn>
           <button
             onClick={() => {
@@ -53,10 +51,14 @@ const Home = () => {
             </PostedBox>
           );
         })}
-      </div>
+      </Allbox>
     </>
   );
 };
+
+const Allbox = styled.div`
+  margin-bottom: 50px;
+`;
 
 const PostedBox = styled.div`
   display: flex;

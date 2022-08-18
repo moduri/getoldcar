@@ -26,7 +26,6 @@ function Header() {
 
   //쿠키 삭제
   const deleteCookie = function (id) {
-    console.log("삭제");
     removeCookie("id");
     if (window.location.pathname !== "/") {
       navigate("/");
