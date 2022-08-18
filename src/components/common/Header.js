@@ -104,7 +104,6 @@ function Header() {
 
 const Head = styled.div`
   height: 100px;
-  /* background-color: #6fa3e2; */
   background-image: url("https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/buying-new-vers-used-1627408695.jpg");
   background-repeat: no-repeat;
   background-size: cover;
