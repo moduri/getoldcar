@@ -49,8 +49,8 @@ const Home = () => {
                   <div> {value.nickname}</div>
                 </IDbox>
                 <Contentbox>
-                  <div>내용</div>
-                  <div>{value.content}</div>
+                  <div>제목</div>
+                  <div>{value.title}</div>
                 </Contentbox>
               </div>
               <div>{value.createdAt?.slice(5, 10)}</div>
