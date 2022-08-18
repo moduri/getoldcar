@@ -1,16 +1,14 @@
-import React, { useEffect, useRef, useState } from "react";
-import styled from "styled-components";
-import axios from "axios";
+import React, { useRef } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useCookies, withCookies } from "react-cookie";
+import styled from "styled-components";
+import axios from "axios";
 import { SendNickname } from "../redux/nicknameSlice";
 
 function Register({ showModal, closeModal, decidepage }) {
   const dispatch = useDispatch();
   const state = useSelector((state) => state);
   const [cookies, setCookie] = useCookies(["id"]);
-
-  // console.log(state.nicknameSlice.nickanme);
 
   const userId = useRef(null);
   const userPswd = useRef(null);
@@ -30,12 +28,9 @@ function Register({ showModal, closeModal, decidepage }) {
         `http://13.209.87.191/api/login`,
         userData
       );
-      // console.log(response);
       setCookie("id", response.data.token);
       // 쿠키에 토큰 저장
-      // console.log(response.data.nickname);
       dispatch(SendNickname(response.data.nickname));
-      // document.getElementById("exitBtn2").click();
     } catch (error) {
       console.log(error);
       alert("아이디 또는 비밀번호가 잘못됐습니다.");
@@ -76,7 +71,7 @@ function Register({ showModal, closeModal, decidepage }) {
       document.getElementById(`pswdnotion`).style.display = "block";
       // 아이디의 길이가 2 < 아이디 < 5 일때
     } else {
-      // 정보를 보내서 회원가입 시도
+      // 정보를 보내서 회원가입
       const Register = async () => {
         const userData = {
           nickname: idcheck.current.value,

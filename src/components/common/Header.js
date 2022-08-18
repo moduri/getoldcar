@@ -26,7 +26,6 @@ function Header() {
 
   //쿠키 삭제
   const deleteCookie = function (id) {
-    console.log("삭제");
     removeCookie("id");
     if (window.location.pathname !== "/") {
       navigate("/");
@@ -105,7 +104,6 @@ function Header() {
 
 const Head = styled.div`
   height: 100px;
-  /* background-color: #6fa3e2; */
   background-image: url("https://hips.hearstapps.com/hmg-prod.s3.amazonaws.com/images/buying-new-vers-used-1627408695.jpg");
   background-repeat: no-repeat;
   background-size: cover;
@@ -126,10 +124,12 @@ const LoginRegister = styled.button`
 `;
 
 const MainTitle = styled.div`
-  font-size: 1.3em;
+  font-size: 2.7em;
   text-align: center;
-  padding-top: 37px;
+  padding-top: 28px;
+  margin-left: 70px;
   color: white;
+  cursor: pointer;
   div {
     -webkit-animation: focus-in-expand-fwd 0.8s
       cubic-bezier(0.25, 0.46, 0.45, 0.94);

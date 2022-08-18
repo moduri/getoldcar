@@ -23,11 +23,9 @@ const Home = () => {
     }
   };
 
-  // 확인용 주석
-
   return (
     <>
-      <div>
+      <Allbox>
         <WriteBtn>
           <button
             onClick={() => {
@@ -46,17 +44,27 @@ const Home = () => {
               }}
             >
               <div>
-                <div>{value.nickname}</div>
-                <div>{value.content}</div>
+                <IDbox>
+                  <div>작성자</div>
+                  <div> {value.nickname}</div>
+                </IDbox>
+                <Contentbox>
+                  <div>내용</div>
+                  <div>{value.content}</div>
+                </Contentbox>
               </div>
               <div>{value.createdAt?.slice(5, 10)}</div>
             </PostedBox>
           );
         })}
-      </div>
+      </Allbox>
     </>
   );
 };
+
+const Allbox = styled.div`
+  margin-bottom: 50px;
+`;
 
 const PostedBox = styled.div`
   display: flex;
@@ -74,16 +82,33 @@ const PostedBox = styled.div`
   overflow: hidden;
 `;
 
+const IDbox = styled.div`
+  display: flex;
+  margin-bottom: 5px;
+  div {
+    margin-right: 15px;
+  }
+`;
+
+const Contentbox = styled.div`
+  display: flex;
+  div {
+    margin-right: 30px;
+  }
+`;
+
 const WriteBtn = styled.div`
   display: flex;
   width: 50%;
   justify-content: flex-end;
   margin: 15px auto 5px auto;
+  padding-left: 10px;
   button {
     border: 1px solid white;
-    font-size: 1.1em;
+    font-size: 1em;
     background-color: white;
     border-radius: 4px;
+    padding: 4px 5px 4px 5px;
   }
 `;
 

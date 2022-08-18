@@ -1,22 +1,32 @@
 <h2><b>미니 프로젝트</b></h2>
-<h2>PickCar</h2>
+<h2>🚗 PickCar</h2>
 <h4>프로젝트 설명: 무슨 중고차를 사야할지 링크와 게시글을 남기고, 댓글로 의견을 남길수 있다.</h4>
 <h4>📆 기간: 2022.08.12 ~ 2022.08.19</h4>
 
 <hr/>
 
-<h3>Stack</h3>
-Client:
+<h2>🔧 STACK</h2>
+
+### Client:
+
 - Javascript
 - React
 - Redux
 
-UI:
+### UI:
 
 - styled components
 - css
 
-Function
+</hr>
+
+### 🔎 Function
+
+추가 예정 <사진>
+
+</hr>
+
+## 📁 File Directory
 
 ```bash
 /src
@@ -53,6 +63,8 @@ Function
 
 ```
 
+</hr>
+
 ## 🧑🏻‍💻 Members
 
 | 이름   | 담당 API                     | 역할                       |
@@ -60,3 +72,8 @@ Function
 | 문동환 | 메인페이지, 로그인, 회원가입 | 가입과 로그인, 깃허브 관리 |
 | 김대연 | 게시글 CRUD                  | 게시글 관련 담당           |
 | 김연중 | 댓글 CRD                     | 댓글 컴퍼넌트 담당         |
+
+</hr>
+
+## After
+

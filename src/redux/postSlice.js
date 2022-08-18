@@ -1,11 +1,12 @@
 import { createAsyncThunk, createSlice, current } from "@reduxjs/toolkit";
 import axios from "axios";
+import { server_url } from ".";
 
 export const _GetPosted = createAsyncThunk(
   "/register",
   async (value, thunkAPI) => {
     try {
-      const result = await axios.get("http://13.209.87.191/api");
+      const result = await axios.get(server_url + `/api`);
       return thunkAPI.fulfillWithValue(result.data);
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
