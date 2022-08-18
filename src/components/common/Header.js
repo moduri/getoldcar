@@ -128,6 +128,7 @@ const MainTitle = styled.div`
   font-size: 2.7em;
   text-align: center;
   padding-top: 28px;
+  margin-left: 70px;
   color: white;
   cursor: pointer;
   div {

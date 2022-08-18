@@ -30,15 +30,24 @@ const Write = () => {
     });
   };
 
+  // 수정하기
   const onEdit = async () => {
-    await dispatch(
-      updatePost([
-        { postId: params.cd, cookie: cookies.id },
-        { content: write.content, url: write.url, title: write.title },
-      ])
-    );
-    navigate(`/detail/${params.cd}`);
+    if (!write.url.includes("http")) {
+      alert("http 를 붙혀서 작성해주세요!");
+    } else if (write.content.trim().length === 0) {
+      alert("내용을 작성해주세요!");
+    } else {
+      await dispatch(
+        updatePost([
+          { postId: params.cd, cookie: cookies.id },
+          { content: write.content, url: write.url, title: write.title },
+        ])
+      );
+      navigate(`/detail/${params.cd}`);
+    }
   };
+
+  // 작성하기
   const onSubmit = () => {
     let Inputurl = write.url;
     if (!Inputurl.includes("http")) {
