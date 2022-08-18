@@ -29,22 +29,17 @@ console.log(state1);
   }, [deletePost]);
 
   const updateView = () =>{
-    console.log("시작입니다.")
-    console.log(state.userId);
-    console.log(state);
     // if(cookies.id ){
     //   alert("권한이없습니다.");
     // }else{
     // navigate(`/write/${params.cd}`,{state:'edit'});
     // }
-    if(cookies.id ){
+    if(cookies.id){
       navigate(`/write/${params.cd}`,{state:'edit'});
     }else{
-      alert('권한이없습니다.');
+      alert('권한이없습니다. 로그인을 해주세요!');
     
     }
-    console.log(state);
-    console.log(2);
   }
 
   const removeView = () => {
@@ -68,13 +63,13 @@ console.log(state1);
       {/* <StyledLink to="/">메인 페이지</StyledLink> */}
 
       <Header>
-        작성자:{state?.nickname}      
+      작성자:{state?.nickname}      
       </Header>
       
       <Titlebuttonwrap>
         <Title>{state?.title}</Title>
         <DelEdit> 
-        <input type='button' value='수정' height={5} onClick={()=>{updateView()}}/>
+        <input type='button' value='수정' onClick={()=>{updateView()}}/>
         <input type='button' value='삭제' onClick={removeView} />
       </DelEdit>
       </Titlebuttonwrap>

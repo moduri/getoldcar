@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import axios from "axios";
 import { current } from "@reduxjs/toolkit";
+import { Navigate } from "react-router-dom";
 
 export const pickPostAysnc = createAsyncThunk(
   "post/pickPost",
@@ -36,7 +37,8 @@ export const deletePost = createAsyncThunk(
       );
       console.log(res);
       return thunkAPI.fulfillWithValue(res.data);
-    } catch (error) {
+    } catch (error) {if(thunkAPI.rejectWithValue(error))
+      alert("다른사용자의 게시글을 삭제할 수 없습니다!")
       return thunkAPI.rejectWithValue(error);
     }
   }
@@ -67,9 +69,12 @@ export const updatePost = createAsyncThunk(
       );
       console.log(res);
       return thunkAPI.fulfillWithValue(res.data);
-    } catch (error) {
-      console.log("없");
+    } catch (error) {if(thunkAPI.rejectWithValue(error))
+      alert("다른사용자의 게시글을 수정 할 수 없습니다!")
+
       return thunkAPI.rejectWithValue(error);
+
+
     }
   }
 );
