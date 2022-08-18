@@ -99,6 +99,9 @@ const InputPart = styled.input`
   height: 20px;
   border: 1px solid white;
   border-radius: 5px;
+  font-weight: bold;
+  font-size: 15px;
+  padding: 3px;
 `;
 
 const WriteBtn = styled.button`
