@@ -1,11 +1,12 @@
 <h2><b>미니 프로젝트</b></h2>
-<h2>🚗PickCar</h2>
+<h2>🚗 PickCar</h2>
 <h4>프로젝트 설명: 무슨 중고차를 사야할지 링크와 게시글을 남기고, 댓글로 의견을 남길수 있다.</h4>
 <h4>📆 기간: 2022.08.12 ~ 2022.08.19</h4>
 
 <hr/>
 
 <h2>🔧 STACK</h2>
+
 ### Client:
 
 - Javascript
@@ -17,7 +18,7 @@
 - styled components
 - css
 
-🔎 Function
+### 🔎 Function
 
 추가 예정 <사진>
 
