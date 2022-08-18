@@ -34,7 +34,7 @@ export const deletePost = createAsyncThunk(
     } catch (error) {
       if (thunkAPI.rejectWithValue(error))
         alert("다른사용자의 게시글을 삭제할 수 없습니다!");
-      // return thunkAPI.rejectWithValue(error);
+      Navigate("/");
     }
   }
 );

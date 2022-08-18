@@ -31,6 +31,7 @@ const GlobalStyle = createGlobalStyle`
             border: 1px solid #cdcdcd;
         }
         button {
+          font-family: 'Nanum Gothic Coding', monospace;
             background-color: #eee;
             cursor: pointer;
             outline: none;
