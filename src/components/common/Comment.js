@@ -1,27 +1,28 @@
 import React, { useRef } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useCookies } from "react-cookie";
+import styled from "styled-components";
 import {
   _PostComment,
   _GetComment,
   _DeleteComment,
 } from "../../redux/commentSlice";
-import { useEffect } from "react";
-import { useCookies } from "react-cookie";
-import styled from "styled-components";
 
 function Comment() {
+  const state = useSelector((state) => state.commentSlice.comment);
   const dispatch = useDispatch();
   const comments_ref = useRef(null);
   const params = useParams();
   const [cookies] = useCookies();
-  const state = useSelector((state) => state.commentSlice.comment);
   const postId2 = params.cd;
 
   useEffect(() => {
     dispatch(_GetComment({ id: postId2, token: cookies.id }));
   }, []);
 
+  // state 순서를 역순으로.
   const stateForMap = state.slice().sort((a, b) => {
     return b.commentId - a.commentId;
   });
@@ -29,8 +30,8 @@ function Comment() {
   return (
     <BicBox>
       <InputBtn>
-        <input ref={comments_ref} />
-        <button
+        <InputPart ref={comments_ref} />
+        <WriteBtn
           onClick={() => {
             dispatch(
               _PostComment({
@@ -39,10 +40,11 @@ function Comment() {
                 token: cookies.id,
               })
             );
+            comments_ref.current.value = "";
           }}
         >
           작성
-        </button>
+        </WriteBtn>
       </InputBtn>
       <div>
         {stateForMap?.map((value) => {
@@ -52,7 +54,7 @@ function Comment() {
               <Text>{value.comment}</Text>
               <BtnBox>
                 <Text>{value?.createdAt?.slice(5, 10)}</Text>
-                <button
+                <DeleteBtn
                   onClick={() => {
                     dispatch(
                       _DeleteComment({ id: value.commentId, token: cookies.id })
@@ -60,7 +62,7 @@ function Comment() {
                   }}
                 >
                   삭제
-                </button>
+                </DeleteBtn>
               </BtnBox>
             </CommentBox>
           );
@@ -81,9 +83,19 @@ const InputBtn = styled.div`
   margin-right: auto;
   justify-content: space-between;
   margin-bottom: 20px;
-  input {
-    width: 75%;
-  }
+`;
+
+const InputPart = styled.input`
+  width: 85%;
+  height: 20px;
+  border: 1px solid white;
+  border-radius: 5px;
+`;
+
+const WriteBtn = styled.button`
+  border: 1px solid white;
+  border-radius: 5px;
+  background-color: white;
 `;
 
 const CommentBox = styled.div`
@@ -103,6 +115,12 @@ const BtnBox = styled.div`
 
 const Text = styled.div`
   margin-right: 30px;
+`;
+
+const DeleteBtn = styled.button`
+  border: 1px solid white;
+  border-radius: 5px;
+  background-color: white;
 `;
 
 export default Comment;

@@ -5,7 +5,6 @@ import { current } from "@reduxjs/toolkit";
 export const _PostComment = createAsyncThunk(
   "comment/post",
   async (comment) => {
-    console.log(comment.Id, comment.postCmt, comment.token);
     const result = await axios.post(
       `http://13.209.87.191/api/comments/${comment.Id}`,
       { comment: comment.postCmt },
@@ -15,7 +14,6 @@ export const _PostComment = createAsyncThunk(
         },
       }
     );
-    console.log(result);
     return { data: result.data, content: comment.postCmt };
   }
 );
