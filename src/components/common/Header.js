@@ -125,10 +125,11 @@ const LoginRegister = styled.button`
 `;
 
 const MainTitle = styled.div`
-  font-size: 1.3em;
+  font-size: 2.7em;
   text-align: center;
-  padding-top: 37px;
+  padding-top: 28px;
   color: white;
+  cursor: pointer;
   div {
     -webkit-animation: focus-in-expand-fwd 0.8s
       cubic-bezier(0.25, 0.46, 0.45, 0.94);

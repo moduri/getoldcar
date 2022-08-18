@@ -92,7 +92,7 @@ const UrlBox = styled.div`
 
 const ContentBox = styled.div`
   background-color: white;
-  font-size: 20px;
+  font-size: 18px;
   width: 50vw;
   height: 23vh;
   border: 1px solid white;

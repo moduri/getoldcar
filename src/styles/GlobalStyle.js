@@ -19,11 +19,12 @@ const GlobalStyle = createGlobalStyle`
           text-align: center;
       }
       .demo a{
-        font-family: 'Raleway', sans-serif;
+        font-family: 'Nanum Gothic', sans-serif;
       color: #000;    
       }
 
     body{
+      font-family: 'Nanum Gothic Coding', monospace;
         background-color: #dcdcdc;
         button:hover {
             background-color: #cdcdcd;

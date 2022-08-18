@@ -44,8 +44,8 @@ const Home = () => {
               }}
             >
               <div>
-                <div>{value.nickname}</div>
-                <div>{value.content}</div>
+                <div>아이디 {value.nickname}</div>
+                <div>내용 {value.content}</div>
               </div>
               <div>{value.createdAt?.slice(5, 10)}</div>
             </PostedBox>
