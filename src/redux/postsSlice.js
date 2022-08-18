@@ -41,7 +41,6 @@ export const deletePost = createAsyncThunk(
     }
   }
 );
-
 // export const getPostAysnc = createAsyncThunk(
 //   "post/getPost",
 //   async (thunkAPI) => {
@@ -53,7 +52,6 @@ export const deletePost = createAsyncThunk(
 //     }
 //   }
 // );
-
 //메인세서 선택한 게시글 수정
 export const updatePost = createAsyncThunk(
   "detail/update",
@@ -61,7 +59,6 @@ export const updatePost = createAsyncThunk(
     try{
       console.log('수정할값', value);
       const res = await axios.put(`http://13.209.87.191/api/posts/${value[0].postId}`,value[1],
-
         {
           headers: {
             Authorization: `Bearer ${value[0].cookie}`,
