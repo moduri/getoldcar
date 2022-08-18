@@ -26,12 +26,11 @@ color: #000;
 
 
 
-
     body{
-        background-color: #e4e4e4;
+        background-color: #dcdcdc;
         button:hover {
-            background-color: #f7f8ff;
-            border: 1px solid #f7f8ff;
+            background-color: #cdcdcd;
+            border: 1px solid #cdcdcd;
         }
         button {
             background-color: #eee;

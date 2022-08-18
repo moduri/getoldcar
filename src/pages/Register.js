@@ -213,8 +213,11 @@ const ExitBtn = styled.button`
   font-size: 1.3em;
   background-color: #cacaca;
   border: 1px solid #cacaca;
+  box-shadow: 0px 0px 0 rgb(0, 0, 0, 0.5);
   :hover {
     color: red;
+    background-color: #cacaca;
+    border: 1px solid #cacaca;
   }
 `;
 
@@ -234,7 +237,7 @@ const TextBox = styled.div`
 const RegisterBtn = styled.button`
   background-color: #fff;
   border-radius: 6px;
-  border: 4px solid white;
+  border: 1px solid white;
   margin-left: auto;
   margin-right: auto;
   margin-top: 10px;
@@ -244,7 +247,7 @@ const RegisterBtn = styled.button`
 const LoginBtn = styled.button`
   background-color: #fff;
   border-radius: 6px;
-  border: 4px solid white;
+  border: 1px solid white;
   margin-left: auto;
   margin-right: auto;
   margin-top: 35px;

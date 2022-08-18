@@ -27,10 +27,17 @@ function Comment() {
     return b.commentId - a.commentId;
   });
 
+  // 댓글 작성하기 엔터누르면 바로 등록
+  const pressEnter = (e) => {
+    if (e.key === "Enter") {
+      document.getElementById("write").click();
+    }
+  };
+
   return (
     <BicBox>
       <InputBtn>
-        <InputPart ref={comments_ref} />
+        <InputPart ref={comments_ref} onKeyPress={pressEnter} />
         <WriteBtn
           onClick={() => {
             dispatch(
@@ -42,6 +49,7 @@ function Comment() {
             );
             comments_ref.current.value = "";
           }}
+          id="write"
         >
           작성
         </WriteBtn>
@@ -74,6 +82,7 @@ function Comment() {
 
 const BicBox = styled.div`
   margin-bottom: 50px;
+  min-width: 350px;
 `;
 
 const InputBtn = styled.div`
@@ -106,6 +115,9 @@ const CommentBox = styled.div`
   margin-right: auto;
   justify-content: space-between;
   margin-bottom: 8px;
+  background-color: white;
+  padding: 5px;
+  border-radius: 5px;
 `;
 
 const BtnBox = styled.div`

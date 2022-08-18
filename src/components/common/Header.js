@@ -117,21 +117,12 @@ const BtnBox = styled.div`
   margin: 8px 10px 0px 0px;
 `;
 
-const GetBtn = styled.button`
-  background-color: white;
-`;
-
-const Nickname = styled.div`
-  color: white;
-`;
-
 const LoginRegister = styled.button`
   background-color: #fff;
   border-radius: 6px;
-  border: 4px solid white;
-  margin-left: auto;
-  margin-right: auto;
-  margin-left: 20px;
+  border: 1px solid white;
+
+  margin: 0px 15px 0px 15px;
 `;
 
 const MainTitle = styled.div`
