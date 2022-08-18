@@ -24,6 +24,7 @@ Function
 
 
 <h2>File Directory</h2>
+
 ```bash
 /src
   ├── components //컴포넌트 폴더
