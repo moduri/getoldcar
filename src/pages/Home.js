@@ -49,7 +49,7 @@ const Home = () => {
                 <div>{value.nickname}</div>
                 <div>{value.content}</div>
               </div>
-              <div>{value.createdAt}</div>
+              <div>{value.createdAt?.slice(5, 10)}</div>
             </PostedBox>
           );
         })}

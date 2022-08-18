@@ -20,16 +20,15 @@ export const Header = styled.div`
 `;
 
 export const Titlebuttonwrap = styled.div`
-
-display: flex;
+  display: flex;
 `;
 
 export const DelEdit = styled.div`
-/* border: solid 2px gray; */
-display: flex;
-margin-right: 20vw;
-width: 5vw;
-height:5vh;
+  /* border: solid 2px gray; */
+  display: flex;
+  margin-right: 20vw;
+  width: 5vw;
+  height: 5vh;
 `;
 
 export const Title = styled.text`
@@ -45,7 +44,7 @@ export const Title = styled.text`
 export const Url = styled.div`
   margin: 0 auto;
   width: 60vw;
-  border : solid 2px gray;
+  border: solid 2px gray;
   font-weight: 700;
   font-size: 30px;
   margin-bottom: 50px;
@@ -66,24 +65,16 @@ export const Body = styled.div`
   white-space: pre-wrap;
 `;
 
+export const LinkBox = styled.div`
+  text-decoration: none;
+  width: 825px;
+  margin: 0 auto;
+  text-align: right;
+`;
 
-
-
-
-
-
-
-
-// export const LinkBox = styled.div`
-//   text-decoration: none;
-//   width: 825px;
-//   margin: 0 auto;
-//   text-align: right;
-// `;
-
-// export const StyledLink = styled(Link)`
-//   text-decoration: none;
-//   color: white;
-//   font-weight: 700;
-//   font-size: 19px;
-// `;
+export const StyledLink = styled(Link)`
+  text-decoration: none;
+  color: white;
+  font-weight: 700;
+  font-size: 19px;
+`;
