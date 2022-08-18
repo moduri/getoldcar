@@ -36,23 +36,22 @@ const Detail = () => {
     dispatch(pickPostAysnc({ id: params.cd, cookie: cookies.id }));
   }, [deletePost]);
 
-  const updateView = () => {
-    console.log("시작입니다.");
-    console.log(state.userId);
-    console.log(state);
+
+  const updateView = () =>{
+
     // if(cookies.id ){
     //   alert("권한이없습니다.");
     // }else{
     // navigate(`/write/${params.cd}`,{state:'edit'});
     // }
-    if (cookies.id) {
-      navigate(`/write/${params.cd}`, { state: "edit" });
-    } else {
-      alert("권한이없습니다.");
+
+    if(cookies.id){
+      navigate(`/write/${params.cd}`,{state:'edit'});
+    }else{
+      alert('권한이없습니다. 로그인을 해주세요!');
     }
-    console.log(state);
-    console.log(2);
-  };
+  }
+
 
   const removeView = () => {
     //  if(window.confirm('해당 게시물을 삭제하시겠습니까?\n삭제된 데이터는 복구할 수 없습니다.')) {
@@ -91,6 +90,21 @@ const Detail = () => {
         <UrlBox>
           <a href={`${state?.url}`}>{state?.url}</a>
         </UrlBox>
+
+
+      <Header>
+      작성자:{state?.nickname}      
+      </Header>
+      
+      <Titlebuttonwrap>
+        <Title>{state?.title}</Title>
+        <DelEdit> 
+        <input type='button' value='수정' onClick={()=>{updateView()}}/>
+        <input type='button' value='삭제' onClick={removeView} />
+      </DelEdit>
+      </Titlebuttonwrap>
+      <PostWrapper>
+        <Url><a href={`${state?.url}`}>{state?.url}</a></Url>
 
         {/* <Url onClick={goUrl}>{state?.title}</Url> */}
         <ContentBox>{state?.content}</ContentBox>
