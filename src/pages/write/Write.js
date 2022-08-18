@@ -1,15 +1,15 @@
 import React, { useEffect, useReducer, useRef } from "react";
 import { Title, Body, Btngroup, Btn1, Btn2, Header, Url } from "./styles";
-import { useParams,useNavigate } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { useState, } from "react";
+import { useState } from "react";
 import { postWritesThunk } from "../../redux/writeSlice";
 import { useCookies, withCookies } from "react-cookie";
 import { updatePost } from "../../redux/postsSlice";
 import { useLocation } from "react-router";
 
 const Write = () => {
-  const state11= useSelector((state) => state.nicknameSlice.nickanme); //닉네임 불러오기
+  const state11 = useSelector((state) => state.nicknameSlice.nickanme); //닉네임 불러오기
   const navigate = useNavigate();
   const params = useParams();
   const dispatch = useDispatch();
@@ -17,7 +17,7 @@ const Write = () => {
   const { state } = useLocation();
   console.log(state);
 
-  console.log("확인용주석")
+  console.log("확인용주석");
   console.log(cookies.id);
   console.log(params.cd);
 
@@ -39,21 +39,22 @@ const Write = () => {
   };
 
   const onEdit = async () => {
-    await dispatch(updatePost([{postId:params.cd, 
-      cookie:cookies.id}, {content: write.content, 
-        url: write.url, 
-        title: write.title}]));
+    await dispatch(
+      updatePost([
+        { postId: params.cd, cookie: cookies.id },
+        { content: write.content, url: write.url, title: write.title },
+      ])
+    );
     // postId랑 쿠키 보내야함
-    navigate(`/detail/${params.cd}`)
-  }
+    navigate(`/detail/${params.cd}`);
+  };
   const onSubmit = () => {
-    let Inputurl = write.url 
-    if(!Inputurl.includes("http")){
-      alert("http 를 붙혀서 작성해주세요!")
+    let Inputurl = write.url;
+    if (!Inputurl.includes("http")) {
+      alert("http 를 붙혀서 작성해주세요!");
     } else if (write.content.trim().length === 0) {
-      alert("내용을 작성해주세요!")
-    } 
-    else {
+      alert("내용을 작성해주세요!");
+    } else {
       dispatch(
         postWritesThunk([
           {
@@ -62,45 +63,41 @@ const Write = () => {
             url: Inputurl,
           },
           { id: cookies.id },
-          
         ])
       );
       alert("글 등록이 완료되었습니다.");
       navigate("/");
     }
-
   };
 
-  
   // useEffect(() => {
   //   dispatch(postWritesThunk())}
   // ,[updatePost]);
 
   return (
     <div>
-      <Header>PickCar</Header>
       <Title
         value={write.title}
         name="title"
         onChange={onChangeHandler}
-        placeholder="제목을 입력해주세요."
+        placeholder="제목을 입력해주세요"
         maxLength={30}
       ></Title>
       <Url
         value={write.value}
         name="url"
         onChange={onChangeHandler}
-        placeholder="url을 입력해주세요."
+        placeholder="url을 입력해주세요"
       ></Url>
       <Body
         value={write.body}
         name="content"
         onChange={onChangeHandler}
-        placeholder="내용을 입력해주세요."
+        placeholder="내용을 입력해주세요"
         maxLength={500}
       ></Body>
       <Btngroup>
-      <Btn1 type="button" onClick={state === 'edit' ? onEdit : onSubmit }>
+        <Btn1 type="button" onClick={state === "edit" ? onEdit : onSubmit}>
           작성
         </Btn1>
         {/* <Btn1 type="button" onClick={onSubmit}>

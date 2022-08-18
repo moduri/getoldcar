@@ -1,47 +1,57 @@
 import styled from "styled-components";
 export const Title = styled.input`
   width: 50vw;
-  height: 10vh;
+  min-width: 360px;
+  height: 4vh;
   display: flex;
   margin: 0 auto;
-  margin-top: 5rem;
+  margin-top: 3.3rem;
   margin-bottom: 2rem;
   resize: none;
-  font-size: 30px;
-  font-weight: 700;
-  border-radius: 10px;
-  padding: 15px;
+  font-size: 20px;
+  font-weight: 500;
+  border-radius: 5px;
+  padding: 5px;
+  border: 1px solid white;
+  :focus {
+    outline: none !important;
+    border: 1px solid #c4c0ff;
+  }
 `;
 
 export const Url = styled.input`
   width: 50vw;
-  height: 5vh;
+  height: 3vh;
+  min-width: 360px;
   display: flex;
   margin: 0 auto;
   margin-top: 2rem;
   margin-bottom: 2rem;
   resize: none;
-  font-size: 25px;
-  font-weight: 600;
-  border-radius: 10px;
-  padding: 15px;
+  font-size: 20px;
+  font-weight: 500;
+  border-radius: 5px;
+  border: 1px solid white;
+  padding: 5px;
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
 `;
 export const Body = styled.textarea`
   width: 50vw;
-  height: 50vh;
-  display: flex;
+  height: 27vh;
+  min-width: 360px;
+  display: block;
   margin: 0 auto;
   margin-bottom: 1rem;
   resize: none;
   font-size: 20px;
   font-weight: 500;
-  border-radius: 10px;
-  padding: 15px;
+  border-radius: 5px;
+  padding: 5px;
   resize: none;
   overflow: hidden;
+  border: 1px solid white;
 `;
 // upload{
 //     background-color: white;
@@ -59,13 +69,14 @@ export const Btngroup = styled.div`
 
 export const Btn1 = styled.button`
   border-radius: 5px;
-  width: 70px;
-  height: 45px;
+  width: 60px;
+  height: 35px;
   cursor: pointer;
   color: black;
   font-weight: bolder;
   font-size: 20px;
   background-color: white;
+  border: 1px solid white;
   &:active {
     transform: scale(0.97);
   }
@@ -73,13 +84,14 @@ export const Btn1 = styled.button`
 
 export const Btn2 = styled.button`
   border-radius: 5px;
-  width: 70px;
-  height: 45px;
+  width: 60px;
+  height: 35px;
   cursor: pointer;
   font-size: 20px;
   color: black;
   font-weight: bolder;
   background-color: white;
+  border: 1px solid white;
   &:active {
     transform: scale(0.97);
   }
